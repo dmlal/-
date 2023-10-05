@@ -18,11 +18,14 @@
   }
 
   .head {
-    text-align: center;
-    position: relative;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('./img/title.png');
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
   }
 
   .introduce {
@@ -30,8 +33,8 @@
         이미지 넣고 js로 슬라이드 구현
         */
     margin-top: 30px;
+    max-width: 500px;
     position: relative;
-    text-align: center;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -82,7 +85,6 @@
 
 <body>
   <div class="head">
-    <img src="./img/title.png">
   </div>
   <div class="introduce">
     <img src="./img/teamimg1.jpg">
