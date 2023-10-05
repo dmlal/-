@@ -66,14 +66,37 @@
     text-align: center;
   }
 
-  .test {
-    height: 500px;
-    width: 1200px;
-    /*이 부분 Mypages랑 사이즈 맞게 반응형으로 바꾸면 좋을 거같아요 */
-    text-align: center;
-    margin: 30px auto 30px auto;
-    background-color: rgb(206, 198, 192);
+  .myprofile {
+    padding: 10px 10px 10px 10px;
+    width: 90%;
+    height: 600px;
+    margin: 30px auto 100px auto;
     border: 1px solid black;
+  }
+
+  .profileleft {
+    border-right: 1px solid black;
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+
+  .profileright {
+    width: 100rem;
+    height: 100%;
+  }
+
+  .imgbox {
+    height: 18rem;
+    width: 18rem;
+    margin-right: 10px;
+    border: 1px solid black;
+    float: left;
+  }
+
+  .profileimg {
+    height: 18rem;
+    width: 18rem;
   }
 
   .section input[id*="slide"] {
@@ -184,49 +207,78 @@
     </div>
   </div>
 
-  <div class="myPages">
-    <div class="card" style="width: 18rem">
-      <img src="./img/test1.png" class="cardimg" alt="..." onclick="openMyPage()" />
-      <div class="cardbody">
-        <p class="cardtext" style="
+  <div>
+    <div class="myPages">
+      <div class="card" style="width: 18rem">
+        <img src="./img/test1.png" class="cardimg" alt="..." onclick="openMyPage()" />
+        <div class="cardbody">
+          <p class="cardtext" style="
               width: 130px;
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
             ">
-          카드1
-        </p>
+            카드1
+          </p>
+        </div>
       </div>
-    </div>
-    <div class="card" style="width: 18rem">
-      <img src="./img/test2.png" class="cardimg" alt="..." onclick="openMyPage()" />
-      <div class="cardbody">
-        <p class="cardtext" style="
+      <div class="card" style="width: 18rem">
+        <img src="./img/test2.png" class="cardimg" alt="..." onclick="openMyPage()" />
+        <div class="cardbody">
+          <p class="cardtext" style="
               width: 130px;
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
             ">
-          카드2
-        </p>
+            카드2
+          </p>
+        </div>
       </div>
-    </div>
-    <div class="card" style="width: 18rem">
-      <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage()" />
-      <div class="cardbody">
-        <p class="cardtext" style="
+      <div class="card" style="width: 18rem">
+        <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage()" />
+        <div class="cardbody">
+          <p class="cardtext" style="
               width: 130px;
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
             ">
-          카드3
-        </p>
+            카드3
+          </p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="test">
-    Js로 사진 클릭시 프로필 뜨게 설정하면 됩니다
+
+  <div class="myprofile">
+    <div class="profileleft">
+      <div class="imgbox">
+        <img src="./img/test1.png" class="profileimg">
+      </div>
+      <div>
+        <h1>이름</h1>
+        <h1>MBTI:</h1>
+        <h1>블로그 주소:</h1>
+        <p>
+          [자신]에 대한 설명 및 MBTI <br>
+          객관적으로 살펴본 자신의 장점 <br>
+          자신의 스타일 협업 스타일 소개 <br>
+        </p>
+      </div>
+    </div>
+    <div class="profileright">
+      <div>
+        <h1>이름</h1>
+        <h1>MBTI:</h1>
+        <h1>블로그 주소:</h1>
+        <p>
+          [자신]에 대한 설명 및 MBTI <br>
+          객관적으로 살펴본 자신의 장점 <br>
+          자신의 스타일 협업 스타일 소개 <br>
+        </p>
+      </div>
+    </div>
   </div>
 </body>
 
