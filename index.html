@@ -53,7 +53,16 @@
     margin: 0px 50px;
     border: 0.5px solid gray;
     border-radius: 5px;
+    transition: all 0.3s linear;
+    cursor: pointer;
   }
+
+  .card:hover,
+  .card:focus {
+    transform: scale(1.1);
+  }
+
+  /* card에 마우스 커서 올리거나 포커스 되면 card 크기 커지게 하는 css */
 
   .cardimg {
     height: 18rem;
@@ -69,9 +78,9 @@
   .myprofile {
     padding: 10px 10px 10px 10px;
     width: 90%;
-    height: 600px;
     margin: 30px auto 100px auto;
     border: 1px solid black;
+    overflow: auto;
   }
 
   .profileleft {
@@ -82,8 +91,9 @@
   }
 
   .profileright {
-    width: 100rem;
+    width: 50%;
     height: 100%;
+    margin: 0px 0px 0px auto;
   }
 
   .imgbox {
@@ -97,6 +107,7 @@
   .profileimg {
     height: 18rem;
     width: 18rem;
+    padding-bottom: 10px;
   }
 
   .section input[id*="slide"] {
@@ -209,7 +220,8 @@
 
   <div>
     <div class="myPages">
-      <div class="card" style="width: 18rem">
+      <div class="card" style="width: 18rem" tabindex="0">
+        <!-- 자바 스크립트 넣기 전 tabindex="0"로 구현 해놨어요 자바 스크립트 넣으면 빠질 예정 -->
         <img src="./img/test1.png" class="cardimg" alt="..." onclick="openMyPage()" />
         <div class="cardbody">
           <p class="cardtext" style="
@@ -222,7 +234,7 @@
           </p>
         </div>
       </div>
-      <div class="card" style="width: 18rem">
+      <div class="card" style="width: 18rem" tabindex="0">
         <img src="./img/test2.png" class="cardimg" alt="..." onclick="openMyPage()" />
         <div class="cardbody">
           <p class="cardtext" style="
@@ -235,7 +247,7 @@
           </p>
         </div>
       </div>
-      <div class="card" style="width: 18rem">
+      <div class="card" style="width: 18rem" tabindex="0">
         <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage()" />
         <div class="cardbody">
           <p class="cardtext" style="
@@ -257,15 +269,24 @@
         <img src="./img/test1.png" class="profileimg">
       </div>
       <div>
-        <h1>이름</h1>
-        <h1>MBTI:</h1>
-        <h1>블로그 주소:</h1>
-        <p>
-          [자신]에 대한 설명 및 MBTI <br>
-          객관적으로 살펴본 자신의 장점 <br>
-          자신의 스타일 협업 스타일 소개 <br>
-        </p>
+        <div>
+          <h1>이름</h1>
+        </div>
+        <div>
+          <h1>MBTI</h1>
+        </div>
+        <div>
+          <h1>블로그 주소</h1>
+        </div>
+        <div>
+          <p>
+            [자신]에 대한 설명 및 MBTI <br>
+            객관적으로 살펴본 자신의 장점 <br>
+            자신의 스타일 협업 스타일 소개 <br>
+          </p>
+        </div>
       </div>
+
     </div>
     <div class="profileright">
       <div>
@@ -279,7 +300,71 @@
         </p>
       </div>
     </div>
+    <div class="i">
+      <iframe src="https://wikidocs.net/" width=100% height="1500px" title=" 내용"></iframe>
+    </div>
   </div>
+
+  <div class="myprofile">
+    <div class="i">
+      <iframe src="https://wikidocs.net/" width=100% height="1500px" title=" 내용"></iframe>
+    </div>
+  </div>
+
+  <div class="myprofile">
+    <div class="profileleft">
+      <div class="imgbox">
+        <img src="./img/test1.png" class="profileimg">
+      </div>
+      <div>
+        <div>
+          <h1>이름</h1>
+        </div>
+        <div>
+          <h1>MBTI</h1>
+        </div>
+        <div>
+          <h1>블로그 주소</h1>
+        </div>
+        <div>
+          <p>
+            [자신]에 대한 설명 및 MBTI <br>
+            객관적으로 살펴본 자신의 장점 <br>
+            자신의 스타일 협업 스타일 소개 <br>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <div class="profileright">
+      <div>
+        <p>
+          (1절)
+          동해물과 백두산이 마르고 닳도록
+          하느님이 보우하사 우리나라만세
+          (후렴)무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세
+
+          (2절)
+          남산위에 저 소나무 철갑을 두른듯
+          바람서리 불변함은 우리기상 일세
+          (후렴)무궁화 삼천리 화려강산 대한사람 대한으로 길이보전하세
+
+          (3절)
+          가을하늘 공활한데 높고 구름없이
+          밝은달은 우리가슴 일편단심일세
+          (후렴)무궁화 삼천리 화려강산 대한사람 대한으로 길이보전하세
+
+          (4절)
+          이 기상과 이 맘으로 충성을 다하여
+          괴로우나 즐거우나 나라사랑하세
+          (후렴)무궁화 삼천리 화려강산 대한사람 대한으로 길이보전하세
+
+
+        </p>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
