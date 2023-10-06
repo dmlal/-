@@ -11,10 +11,10 @@
 </head>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
 
   * {
-    font-family: "Do Hyeon", sans-serif;
+    font-family: "Do Hyeon", "Noto Sans KR";
   }
 
   .head {
@@ -29,9 +29,6 @@
   }
 
   .introduce {
-    /* 임시이미지 사용.  추후 변경필요
-        이미지 넣고 js로 슬라이드 구현
-        */
     margin-top: 30px;
     max-width: 500px;
     position: relative;
@@ -57,23 +54,30 @@
     cursor: pointer;
   }
 
+  .cardtext {
+    margin: 3px auto 3px auto;
+    font-size: xx-large;
+    text-align: center;
+  }
+
+  /* card 크기 커지게 하는 css 시작 */
+
   .card:hover,
   .card:focus {
     transform: scale(1.1);
   }
-
-  /* card에 마우스 커서 올리거나 포커스 되면 card 크기 커지게 하는 css */
 
   .cardimg {
     height: 18rem;
     width: 18rem;
   }
 
-  .cardtext {
-    margin: 3px auto 3px auto;
-    font-size: xx-large;
-    text-align: center;
-  }
+  /* card 크기 커지게 하는 css 끝 */
+
+
+
+
+  /* 기존 프로필 CSS 시작 */
 
   .myprofile {
     padding: 10px 10px 10px 10px;
@@ -109,6 +113,61 @@
     width: 18rem;
     padding-bottom: 10px;
   }
+
+  /* 기존 프로필 CSS 끝 */
+
+  /* 2번 프로필 CSS 시작 (프로필별 각자 다른 CSS 적용 하시려면 이렇게 뒤에 숫자로 번호 적어주시고 적용해주세용) */
+
+  .myprofile2 {
+    padding: 10px 10px 10px 10px;
+    width: 90%;
+    margin: 30px auto 100px auto;
+    border: 1px solid black;
+    overflow: auto;
+    font-family: 'Noto Sans KR';
+    flex: 1 0 auto;
+    min-width: 600px;
+  }
+
+  .profileleft2 {
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+
+  .lefttext2 {
+    margin: auto 10px 10px 10px;
+  }
+
+  .profileright2 {
+    width: 50%;
+    margin: 0px 0px 0px auto;
+    border: 1px black solid;
+  }
+
+  .righttext2 {
+    margin: auto 10px 10px 10px;
+  }
+
+  .imgbox2 {
+    height: 18rem;
+    width: 18rem;
+    margin-right: 10px;
+    border: 1px solid black;
+    float: left;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profileimg2 {
+    height: 18rem;
+    width: 18rem;
+    padding-bottom: 10px;
+  }
+
+  /* 2번 프로필 CSS 끝 */
+
+  /* 이미지 슬라이드 CSS */
 
   .section input[id*="slide"] {
     display: none;
@@ -175,17 +234,38 @@
   .section input[id="slide03"]:checked~.slidewrap .slidelist>li {
     transform: translateX(-200%);
   }
+
+  /* 이미지 슬라이드 CSS 끝 */
 </style>
 
 <script>
-  function openMyPage() {
-    alert('Test')
+  $(document).ready(function () {
+    $('#profilebox1').hide();
+    $('#profilebox2').hide();
+    $('#profilebox3').hide();
+  })
+  function openMyPage1() {
+    $('#profilebox1').slideToggle('slow');
+    $('#profilebox2').slideUp();
+    $('#profilebox3').slideUp();
+
+  }
+  function openMyPage2() {
+    $('#profilebox1').slideUp();
+    $('#profilebox2').slideToggle('slow');
+    $('#profilebox3').slideUp();
+  }
+  function openMyPage3() {
+    $('#profilebox1').slideUp();
+    $('#profilebox2').slideUp();
+    $('#profilebox3').slideToggle('slow');
   }
 </script>
 
 <body>
   <div class="head">
   </div>
+  <!-- 이미지 슬라이드 -->
   <div class="section">
     <input type="radio" name="slide" id="slide01" checked>
     <input type="radio" name="slide" id="slide02">
@@ -218,11 +298,11 @@
     </div>
   </div>
 
+  <!-- 사진 카드 -->
   <div>
     <div class="myPages">
       <div class="card" style="width: 18rem" tabindex="0">
-        <!-- 자바 스크립트 넣기 전 tabindex="0"로 구현 해놨어요 자바 스크립트 넣으면 빠질 예정 -->
-        <img src="./img/test1.png" class="cardimg" alt="..." onclick="openMyPage()" />
+        <img src="./img/test1.png" class="cardimg" alt="..." onclick="openMyPage1()" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -230,12 +310,12 @@
               white-space: nowrap;
               overflow: hidden;
             ">
-            카드1
+            박상신
           </p>
         </div>
       </div>
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/test2.png" class="cardimg" alt="..." onclick="openMyPage()" />
+        <img src="./img/test2.png" class="cardimg" alt="..." onclick="openMyPage2()" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -243,12 +323,12 @@
               white-space: nowrap;
               overflow: hidden;
             ">
-            카드2
+            조원호
           </p>
         </div>
       </div>
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage()" />
+        <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage3()" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -256,14 +336,98 @@
               white-space: nowrap;
               overflow: hidden;
             ">
-            카드3
+            홍지운
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  
+  <!-- 프로필 페이지 1 (박상신님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile" id="profilebox1">
+    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileleft">
+      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
+      <div class="imgbox">
+        <img src="이미지 소스" class="profileimg" style="display: block;">
+      </div>
+      <div class="lefttext">
+        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
+        왼쪽 내용
+      </div>
+    </div>
+
+    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileright">
+      <div class="righttext">
+        <div style="margin-top: 0px;">
+          자기 소개 텍스트
+        </div>
+      </div>
+    </div>
+    <div class="i" style="margin-top: 10px;">
+      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
+      <!-- <iframe src="https://wonowdaily.tistory.com/" width=100% height="800px" title=" 내용"></iframe> -->
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 2(조원호님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile2" id="profilebox2">
+    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileleft2">
+      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
+      <div class="imgbox2">
+        <img src="이미지 소스" class="profileimg2" style="display: block;">
+      </div>
+      <div class="lefttext2">
+        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
+        왼쪽 내용
+      </div>
+    </div>
+
+    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileright2">
+      <div class="righttext2">
+        <div style="margin-top: 0px;">
+          자기 소개 텍스트
+        </div>
+      </div>
+    </div>
+    <div class="i" style="margin-top: 10px;">
+      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
+      <!-- <iframe src="https://wonowdaily.tistory.com/" width=100% height="800px" title=" 내용"></iframe> -->
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 3(홍지운님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile" id="profilebox3">
+    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileleft">
+      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
+      <div class="imgbox">
+        <img src="이미지 소스" class="profileimg" style="display: block;">
+      </div>
+      <div class="lefttext">
+        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
+        왼쪽 내용
+      </div>
+    </div>
+
+    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileright">
+      <div class="righttext">
+        <div style="margin-top: 0px;">
+          자기 소개 텍스트
+        </div>
+      </div>
+    </div>
+    <div class="i" style="margin-top: 10px;">
+      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
+      <!-- <iframe src="https://wonowdaily.tistory.com/" width=100% height="800px" title=" 내용"></iframe> -->
+    </div>
+  </div>
+
+
 
 </body>
 
