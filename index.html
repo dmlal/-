@@ -14,7 +14,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
 
   * {
-    font-family: "Do Hyeon", "Noto Sans KR";
+    font-family: "Noto Sans KR";
   }
 
   .head {
@@ -236,6 +236,24 @@
   }
 
   /* 이미지 슬라이드 CSS 끝 */
+
+  /* 댓글 CSS 임시 시작 */
+
+  .card-body {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 10px;
+    width: 90%;
+    margin: 0 auto 0 auto;
+  }
+
+  .mb-4 {
+    margin-top: 10px;
+  }
+
+  /* 댓글 CSS 임시 끝 */
 </style>
 
 <script>
@@ -315,7 +333,7 @@
         </div>
       </div>
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/test2.png" class="cardimg" alt="..." onclick="openMyPage2()" />
+        <img src="./img/card2.jpg" class="cardimg" alt="..." onclick="openMyPage2()" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -377,11 +395,17 @@
     <div class="profileleft2">
       <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
       <div class="imgbox2">
-        <img src="이미지 소스" class="profileimg2" style="display: block;">
+        <img src="./img/card2.jpg" class="profileimg2" style="display: block;">
       </div>
       <div class="lefttext2">
         <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
-        왼쪽 내용
+        <h1 style="margin-top: 0px;">조원호 │ 스펀지 같은 개발자</h1>
+        <h2>Contact</h2>
+        <div>Email: wonow_@naver.com</div>
+        <div>Phone: 010-0000-0000</div>
+        <h2>Channel</h2>
+        <p><a href="https://wonowdaily.tistory.com" target="_blank">개발 블로그</a></p>
+        <p><a href="https://github.com/wonowonow" target="_blank">GitHub</a></p>
       </div>
     </div>
 
@@ -389,13 +413,22 @@
     <div class="profileright2">
       <div class="righttext2">
         <div style="margin-top: 0px;">
-          자기 소개 텍스트
+          안녕하세요! 개발자로서 웹 개발 역량을 키우기 위해 내일 배움 캠프에 참여하게 되었습니다!. <br><br>
+
+          고등학교 시절부터 군 입대하기 전까지 4년간 작곡을 하면서 창의적인 활동에 관심을 가졌습니다.<br>
+          평소 컴퓨터에 관심이 많아 막연하게 개발자의 꿈을 가지고 있었는데, 군 생활 때 AI, SW 교육을 수료하게 되면서 <br>
+          더욱 흥미를 느껴 개발자의 꿈을 확신하게 됐습니다.<br><br>
+
+          제 MBTI는 ENTP이며, 도전을 즐기고 아이디어가 떠오를 때 즉각적으로 실행으로 옮기는 스타일입니다.<br><br>
+
+          협업에서는 커뮤니케이션을 중요하게 생각합니다. 서로의 진행 상황을 공유하고 소통하면서 협업을 원활하게 진행할 수 있다고 믿습니다.<br><br>
+          앞으로 내일 배움 캠프에서 더 많은 것을 배우고, 팀원들과의 협업을 통해 성장하고 싶습니다. 아래는 제 개발 블로그 입니다. 😀
         </div>
       </div>
     </div>
     <div class="i" style="margin-top: 10px;">
       <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
-      <!-- <iframe src="https://wonowdaily.tistory.com/" width=100% height="800px" title=" 내용"></iframe> -->
+      <iframe src="https://wonowdaily.tistory.com/" width=100% height="600px" title=" 내용"></iframe>
     </div>
   </div>
 
@@ -427,7 +460,61 @@
     </div>
   </div>
 
-
+  <!-- 댓글 -->
+  <div class="card-body">
+    <!-- Comment form-->
+    <div>댓글창!</div>
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingInput" placeholder="Username">
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="댓글 입력..."></textarea></form>
+    <button onclick="addcomment()" type="button" class="btn btn-primary btn-lg">등록</button>
+    <!-- Comment with nested comments-->
+    <div class="d-flex mb-4">
+      <!-- Parent comment-->
+      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+          alt="..."></div>
+      <div class="ms-3">
+        <div class="fw-bold">Commenter Name</div>
+        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise.
+        Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+        <!-- Child comment 1-->
+        <div class="d-flex mt-4">
+          <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+              alt="..."></div>
+          <div class="ms-3">
+            <div class="fw-bold">Commenter Name</div>
+            And under those conditions, you cannot establish a capital-market evaluation of that enterprise.
+            You can't get investors.
+          </div>
+        </div>
+        <!-- Child comment 2-->
+        <div class="d-flex mt-4">
+          <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+              alt="..."></div>
+          <div class="ms-3">
+            <div class="fw-bold">Commenter Name</div>
+            When you put money directly to a problem, it makes a good headline.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Single comment-->
+    <div class="d-flex">
+      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+          alt="..."></div>
+      <div class="ms-3">
+        <div class="fw-bold">Commenter Name</div>
+        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile
+        that with statements of beneficence.
+      </div>
+    </div>
+  </div>
 
 </body>
 
