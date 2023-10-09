@@ -118,6 +118,24 @@
 
   /* 2번 프로필 CSS 시작 (프로필별 각자 다른 CSS 적용 하시려면 이렇게 뒤에 숫자로 번호 적어주시고 적용해주세용) */
 
+    /* 프로필1 */
+    .myprofile1 {
+    padding: 20px;
+    width: 80%;
+    margin: 30px auto 100px auto;
+    border-top: 2px solid lightgray;
+    overflow: visible;
+  }
+
+.flip:hover .card {
+  transform: rotateY(180deg);
+}
+a:link{
+    color:black;
+}
+
+    /*  */
+
   .myprofile2 {
     padding: 10px 10px 10px 10px;
     width: 90%;
@@ -320,7 +338,7 @@
   <div>
     <div class="myPages">
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/test1.png" class="cardimg" alt="..." onclick="openMyPage1()" />
+        <img src="./프로필이미지/눈.jpg" class="cardimg" alt="..." onclick="openMyPage1()" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -362,32 +380,133 @@
   </div>
 
   <!-- 프로필 페이지 1 (박상신님) 스크롤 내리기 힘드시면 접어주세요 -->
-  <div class="myprofile" id="profilebox1">
-    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
-    <div class="profileleft">
-      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
-      <div class="imgbox">
-        <img src="이미지 소스" class="profileimg" style="display: block;">
-      </div>
-      <div class="lefttext">
-        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
-        왼쪽 내용
-      </div>
-    </div>
+  <div class="myprofile1" id="profilebox1" style="display: flex; flex-direction: row; align-items: center;">
+    <div class="flip" 
+    style=" width: 300px;
+    height: 400px;
+    perspective: 1100px;
+    margin-left:50px;" 
+    id="filpcard">  
+        <div class="card" style="width: 300px; 
+        height: 400px; 
+        position: relative;
+        transition: .4s;
+        transform-style: preserve-3d;">
+          
+          <div class="front" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden;
+          display: flex; flex-direction: column; align-items: center;">
+           <img src="./프로필이미지/스페이드A.png" style="width:300px; height: 400px; object-fit:fill"></img>
+          </div>
+        
+          <div class="back" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 240)">
+          <div style="padding:10px;">
+            <div class="mycontent"  style="display: flex; flex-direction: column; align-items: center; padding-top: 5%;">
+              <iframe width="100%" height="50%" src="https://www.youtube.com/embed/hoknJbAsOZY?si=qOWuf49ZHJ1raHm3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <span style="text-align: center; list-style-type: none; font-family:fantasy; line-height: 2;"> 
+                <br>안녕하세요.<br>A-2 "국밥"의 팀장<br>박상신입니다.<br> 캠프 5개월간 잘부탁드립니다!<br> 위의 노래는 최근 자주 듣는 곡입니다. </span>  
+            </div>
+        </div>
 
-    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
-    <div class="profileright">
-      <div class="righttext">
-        <div style="margin-top: 0px;">
-          자기 소개 텍스트
+          </div>
         </div>
       </div>
+
+    <div class="flip" 
+    style=" width: 300px;
+    height: 400px;
+    perspective: 1100px; 
+    margin-left: 100px;" 
+    id="filpcard">  
+        <div class="card" style="width: 300px; 
+        height: 400px; 
+        position: relative;
+        transition: .4s;
+        transform-style: preserve-3d;">
+          
+          <div class="front" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden;">
+            <img src="./프로필이미지/불호.jpg" style="width:300px; height:400px; object-fit:cover;"></img>
+          </div>
+        
+          <div class="back" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden; transform: rotateY(180deg);">
+          <div style="padding:10px;">
+            <div class="mycontent"  style="display: flex; flex-direction: column; align-items: center;">
+                <div title="티스토리" class="블로그">
+                  <strong>
+                    <a href="https://like-it-too.tistory.com/" target="_blank"
+                      ><img src="./프로필이미지/티스토리.png"></a>
+                  </strong>
+                </div>
+                <div title="깃허브" class="깃허브" style="margin: 10px;">
+                  <strong>
+                    <a href="https://github.com/dmlal" target="_blank">
+                        <img src="./프로필이미지/깃허브.png"></a>
+                  </strong>
+                </div>
+                <div title="멤버카드" class="멤버카드">
+                    <a
+                      href="https://www.notion.so/7f5b559aa6b342738566f2d33abce3ab?pvs=4"
+                      target="_blank">
+                      <img src="./프로필이미지/노션.png">
+                    </a>
+                </div>
+              </div>
+        </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="flip" 
+      style=" width: 300px;
+      height: 400px;
+      perspective: 1100px; margin-left: 100px;" 
+      id="filpcard">  
+          <div class="card" style="width: 300px; 
+          height: 400px; 
+          position: relative;
+          transition: .4s;
+          transform-style: preserve-3d;">
+            
+            <div class="front" style="position: absolute;
+            width: 100%; 
+            height: 100%;
+            backface-visibility: hidden;">
+              <img src="./프로필이미지/intp.png" style="color: white; width:300px; height:400px; object-fit:fill;"></img>
+            </div>
+          
+            <div class="back" style="position: absolute;
+            width: 100%; 
+            height: 100%;
+            backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 204);">
+            <div style="padding-top:12px;">
+              <ul style="padding:20px; text-align: center; list-style-type: none; font-family:fantasy;" >
+                  <p style="font-size: x-large;">장점</p>
+                  <li>일처리가 깔끔한 것을 선호함</li>
+                  <li>새로운 것을 받아들이는것에 거부감이 없음</li>
+              </ul>
+              <ul style="padding:20px; text-align: center; list-style-type: none;">
+                  <p style="font-size: x-large;">협업스타일</p>
+                  <li>협업 상대와의 의사소통을 중요시함</li>
+                  <li>각자의 요구사항을 최대한 반영하는 것을 선호</li>
+              </ul>
+          </div>
+  
+            </div>
+          </div>
+        </div>
     </div>
-    <div class="i" style="margin-top: 10px;">
-      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
-      <!-- <iframe src="https://wonowdaily.tistory.com/" width=100% height="800px" title=" 내용"></iframe> -->
-    </div>
-  </div>
 
   <!-- 프로필 페이지 2(조원호님) 스크롤 내리기 힘드시면 접어주세요 -->
   <div class="myprofile2" id="profilebox2">
