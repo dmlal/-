@@ -1,0 +1,192 @@
+  @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
+
+  * {
+      font-family: "Noto Sans KR";
+  }
+
+  .head {
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: url('./img/title.png');
+      background-position: center;
+      background-size: cover;
+  }
+
+  .introduce {
+      margin-top: 30px;
+      max-width: 500px;
+      position: relative;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+  }
+
+  .myPages {
+      width: 100%;
+      margin: 30px 0px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .card {
+      margin: 0px 50px;
+      border: 0.5px solid gray;
+      border-radius: 5px;
+      transition: all 0.3s linear;
+      cursor: pointer;
+  }
+
+  .cardtext {
+      margin: 3px auto 3px auto;
+      font-size: xx-large;
+      text-align: center;
+  }
+
+  /* card 크기 커지게 하는 css 시작 */
+
+  .card:hover,
+  .card:focus {
+      transform: scale(1.1);
+  }
+
+  .cardimg {
+      height: 18rem;
+      width: 18rem;
+  }
+
+  /* card 크기 커지게 하는 css 끝 */
+
+
+
+
+  /* 기존 프로필 CSS 시작 */
+
+  .myprofile {
+      padding: 10px 10px 10px 10px;
+      width: 90%;
+      margin: 30px auto 100px auto;
+      border: 1px solid black;
+      overflow: auto;
+  }
+
+  .profileleft {
+      border-right: 1px solid black;
+      width: 50%;
+      height: 100%;
+      float: left;
+  }
+
+  .profileright {
+      width: 50%;
+      height: 100%;
+      margin: 0px 0px 0px auto;
+  }
+
+  .imgbox {
+      height: 18rem;
+      width: 18rem;
+      margin-right: 10px;
+      border: 1px solid black;
+      float: left;
+  }
+
+  .profileimg {
+      height: 18rem;
+      width: 18rem;
+      padding-bottom: 10px;
+  }
+
+  /* 기존 프로필 CSS 끝 */
+
+  /* 이미지 슬라이드 CSS */
+
+  .section input[id*="slide"] {
+      display: none;
+  }
+
+  .section .slidewrap {
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+  }
+
+  .section .slidelist {
+      white-space: nowrap;
+      font-size: 0;
+      padding: 0;
+      margin: 0;
+  }
+
+  .section .slidelist>li {
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      transition: all .5s;
+  }
+
+  .section .slidelist>li>a {
+      display: block;
+      position: relative;
+  }
+
+  .section .slidelist>li>a img {
+      width: 100%;
+  }
+
+  /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
+  .section .slidelist label {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 30px;
+      cursor: pointer;
+  }
+
+  .section .slidelist .left {
+      left: 30px;
+      background: url('./img/left.png') center center / 100% no-repeat;
+  }
+
+  .section .slidelist .right {
+      right: 30px;
+      background: url('./img/right.png') center center / 100% no-repeat;
+  }
+
+  /* INPUT 체크되면 변화값이 li까지 전달되는 스타일 */
+  .section input[id="slide01"]:checked~.slidewrap .slidelist>li {
+      transform: translateX(0%);
+  }
+
+  .section input[id="slide02"]:checked~.slidewrap .slidelist>li {
+      transform: translateX(-100%);
+  }
+
+  .section input[id="slide03"]:checked~.slidewrap .slidelist>li {
+      transform: translateX(-200%);
+  }
+
+  /* 이미지 슬라이드 CSS 끝 */
+
+  /* 댓글 CSS 임시 시작 */
+
+  .card-body {
+      flex: 1 1 auto;
+      padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+      border: 1px solid black;
+      border-radius: 3px;
+      padding: 10px;
+      width: 90%;
+      margin: 0 auto 0 auto;
+  }
+
+  .mb-4 {
+      margin-top: 10px;
+  }
+
+  /* 댓글 CSS 임시 끝 */
