@@ -22,34 +22,40 @@
     width: 90%;
     margin: 0 auto 0 auto;
   }
-  .idpwd{
+
+  .idpwd {
     display: flex;
     flex-direction: row;
     justify-content: left;
     margin: 0px;
     padding: 5px;
   }
-  .form-floating mb-3{
+
+  .form-floating mb-3 {
     margin-bottom: 0px;
   }
+
   .mb-4 {
     margin-top: 1px;
-    
-    padding:5px;
+
+    padding: 5px;
   }
-  #commentarea{
+
+  #commentarea {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
   }
-  .d-flex{
+
+  .d-flex {
     margin-bottom: 15px;
-    width:85%;
+    width: 85%;
     display: flex;
     flex-direction: row;
   }
-  .editdel{
-    width:30px;
+
+  .editdel {
+    width: 30px;
     display: inline-flex;
     flex-direction: column;
     justify-content: right;
@@ -125,50 +131,50 @@
 </style>
 
 <script type="module">
-    // Firebase SDK 라이브러리 가져오기
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+  // Firebase SDK 라이브러리 가져오기
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+  import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+  import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 
-// Firebase 구성 정보 설정
-const firebaseConfig = {
-  apiKey: "AIzaSyDrRTIRFuUPfykOxF7DLS-GCRp6Dqn-KzA",
-  authDomain: "sparta-27ea8.firebaseapp.com",
-  projectId: "sparta-27ea8",
-  storageBucket: "sparta-27ea8.appspot.com",
-  messagingSenderId: "161304824934",
-  appId: "1:161304824934:web:7d1d2938be312ae095f1a7",
-  measurementId: "G-DMWEQ4KHWD"
-};
+  // Firebase 구성 정보 설정
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrRTIRFuUPfykOxF7DLS-GCRp6Dqn-KzA",
+    authDomain: "sparta-27ea8.firebaseapp.com",
+    projectId: "sparta-27ea8",
+    storageBucket: "sparta-27ea8.appspot.com",
+    messagingSenderId: "161304824934",
+    appId: "1:161304824934:web:7d1d2938be312ae095f1a7",
+    measurementId: "G-DMWEQ4KHWD"
+  };
 
 
-// Firebase 인스턴스 초기화
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+  // Firebase 인스턴스 초기화
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-  $(document).ready(function () {
-    $('#profilebox1').hide();
-    $('#profilebox2').hide();
-    $('#profilebox3').hide();
-  })
-  function openMyPage1() {
+  $('#profilebox1').hide();
+  $('#profilebox2').hide();
+  $('#profilebox3').hide();
+
+  $("#openMyPage1").click(async function () {
     $('#profilebox1').slideToggle('slow');
     $('#profilebox2').slideUp();
     $('#profilebox3').slideUp();
+  })
 
-  }
-  function openMyPage2() {
+  $("#openMyPage2").click(async function () {
     $('#profilebox1').slideUp();
     $('#profilebox2').slideToggle('slow');
     $('#profilebox3').slideUp();
-  }
-  function openMyPage3() {
+  })
+
+  $("#openMyPage3").click(async function () {
     $('#profilebox1').slideUp();
     $('#profilebox2').slideUp();
     $('#profilebox3').slideToggle('slow');
-  }
+  })
 
   $("#addComment").click(async function () {
     let id = $('#inputid').val();
@@ -176,26 +182,24 @@ const db = getFirestore(app);
     let comment = $('#inputcom').val();
 
     let doc = {
-        'inputid':id,
-        'inputpwd':pwd,
-        'inputcom':comment
+      'inputid': id,
+      'inputpwd': pwd,
+      'inputcom': comment
     };
     await addDoc(collection(db, "TP1_Comment"), doc);
     window.location.reload();
-})
+  })
 
-let docs = await getDocs(collection(db, "TP1_Comment"));
-docs.forEach((doc) => {
+  let docs = await getDocs(collection(db, "TP1_Comment"));
+  docs.forEach((doc) => {
     let row = doc.data();
-    
+
     let id = row['inputid'];
     let pwd = row['inputpwd'];
     let comment = row['inputcom'];
-    
+
     let temp = `
     <div class="d-flex">
-      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-          alt="..."></div>
       <div class="ms-3">
         <div class="fw-bold">${id}</div>
         ${comment}
@@ -204,7 +208,7 @@ docs.forEach((doc) => {
       <button id="" type="button" class="btn btn-outline-primary">삭제</button>
     </div>`;
     $('#commentarea').append(temp);
-}); 
+  });
 
 </script>
 
@@ -248,7 +252,7 @@ docs.forEach((doc) => {
   <div>
     <div class="myPages">
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./프로필이미지/눈.jpg" class="cardimg" alt="..." onclick="openMyPage1()" />
+        <img src="./프로필이미지/눈.jpg" class="cardimg" alt="..." id="openMyPage1" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -261,7 +265,7 @@ docs.forEach((doc) => {
         </div>
       </div>
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/card2.jpg" class="cardimg" alt="..." onclick="openMyPage2()" />
+        <img src="./img/card2.jpg" class="cardimg" alt="..." id="openMyPage2" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -274,7 +278,7 @@ docs.forEach((doc) => {
         </div>
       </div>
       <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage3()" />
+        <img src="./img/test3.png" class="cardimg" alt="..." id="openMyPage3" />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -487,34 +491,29 @@ docs.forEach((doc) => {
   <div class="card-body">
     <!-- Comment form-->
     <div class="idpwd">
-    <div class="form-floating mb-3" style="margin-bottom: 0px;">
-      <input type="email" class="form-control" id="inputid" placeholder="Name">
-      <label for="inputid">이름</label>
+      <div class="form-floating mb-3" style="margin-bottom: 0px;">
+        <input type="email" class="form-control" id="inputid" placeholder="Name">
+        <label for="inputid">이름</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="inputpwd" placeholder="Password">
+        <label for="inputpwd">비밀번호</label>
+      </div>
     </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="inputpwd" placeholder="Password">
-      <label for="inputpwd">비밀번호</label>
-    </div>
-</div>
     <form class="mb-4"><textarea id="inputcom" class="form-control" rows="4" placeholder="댓글 입력"></textarea></form>
     <button id="addComment" type="button" class="btn btn-outline-primary">등록</button>
     <!-- Comment with nested comments-->
     <div id="commentarea" class="d-flex mb-4">
-    <!-- Single comment-->
-    <div class="d-flex">
-      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-          alt="..."></div>
-      <div class="ms-3">
-        <div class="fw-bold">Commenter Name</div>
-        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile
-        that with statements of beneficence. 
+      <!-- Single comment-->
+      <div class="d-flex">
+        <div class="ms-3">
+          <div class="fw-bold">뼈대</div>
+          내용 뼈대
+        </div>
+        <button id="" type="button" class="btn btn-outline-primary">수정</button>
+        <button id="" type="button" class="btn btn-outline-primary">삭제</button>
       </div>
-      <div class="editdel">
-      <span>수정</span>
-      <span>삭제</span>
     </div>
-    </div>
-  </div>
 
 </body>
 
