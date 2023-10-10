@@ -8,118 +8,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="index.css" rel="stylesheet">
 </head>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
-
-  * {
-    font-family: "Noto Sans KR";
-  }
-
-  .head {
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url('./img/title.png');
-    background-position: center;
-    background-size: cover;
-  }
-
-  .introduce {
-    margin-top: 30px;
-    max-width: 500px;
-    position: relative;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-  .myPages {
-    width: 100%;
-    margin: 30px 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .card {
-    margin: 0px 50px;
-    border: 0.5px solid gray;
-    border-radius: 5px;
-    transition: all 0.3s linear;
-    cursor: pointer;
-  }
-
-  .cardtext {
-    margin: 3px auto 3px auto;
-    font-size: xx-large;
-    text-align: center;
-  }
-
-  /* card 크기 커지게 하는 css 시작 */
-
-  .card:hover,
-  .card:focus {
-    transform: scale(1.1);
-  }
-
-  .cardimg {
-    height: 18rem;
-    width: 18rem;
-  }
-
-  /* card 크기 커지게 하는 css 끝 */
-
-
-
-
-  /* 기존 프로필 CSS 시작 */
-
-  .myprofile {
-    padding: 10px 10px 10px 10px;
-    width: 90%;
-    margin: 30px auto 100px auto;
-    border: 1px solid black;
-    overflow: auto;
-  }
-
-  .profileleft {
-    border-right: 1px solid black;
-    width: 50%;
-    height: 100%;
-    float: left;
-  }
-
-  .profileright {
-    width: 50%;
-    height: 100%;
-    margin: 0px 0px 0px auto;
-  }
-
-  .imgbox {
-    height: 18rem;
-    width: 18rem;
-    margin-right: 10px;
-    border: 1px solid black;
-    float: left;
-  }
-
-  .profileimg {
-    height: 18rem;
-    width: 18rem;
-    padding-bottom: 10px;
-  }
-
-  /* 기존 프로필 CSS 끝 */
-
-  /* 2번 프로필 CSS 시작 (프로필별 각자 다른 CSS 적용 하시려면 이렇게 뒤에 숫자로 번호 적어주시고 적용해주세용) */
-
-    /* 프로필1 */
-    .myprofile1 {
+  /* 프로필1 */
+  .myprofile1 {
     padding: 20px;
     width: 80%;
     margin: 30px auto 100px auto;
@@ -127,14 +21,15 @@
     overflow: visible;
   }
 
-.flip:hover .card {
-  transform: rotateY(180deg);
-}
-a:link{
-    color:black;
-}
+  .flip:hover .card {
+    transform: rotateY(180deg);
+  }
 
-    /*  */
+  a:link {
+    color: black;
+  }
+
+  /* 2번 프로필 CSS 시작 */
 
   .myprofile2 {
     padding: 10px 10px 10px 10px;
@@ -184,94 +79,6 @@ a:link{
   }
 
   /* 2번 프로필 CSS 끝 */
-
-  /* 이미지 슬라이드 CSS */
-
-  .section input[id*="slide"] {
-    display: none;
-  }
-
-  .section .slidewrap {
-    max-width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-
-  .section .slidelist {
-    white-space: nowrap;
-    font-size: 0;
-    padding: 0;
-    margin: 0;
-  }
-
-  .section .slidelist>li {
-    display: inline-block;
-    vertical-align: middle;
-    width: 100%;
-    transition: all .5s;
-  }
-
-  .section .slidelist>li>a {
-    display: block;
-    position: relative;
-  }
-
-  .section .slidelist>li>a img {
-    width: 100%;
-  }
-
-  /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
-  .section .slidelist label {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 30px;
-    cursor: pointer;
-  }
-
-  .section .slidelist .left {
-    left: 30px;
-    background: url('./img/left.png') center center / 100% no-repeat;
-  }
-
-  .section .slidelist .right {
-    right: 30px;
-    background: url('./img/right.png') center center / 100% no-repeat;
-  }
-
-  /* INPUT 체크되면 변화값이 li까지 전달되는 스타일 */
-  .section input[id="slide01"]:checked~.slidewrap .slidelist>li {
-    transform: translateX(0%);
-  }
-
-  .section input[id="slide02"]:checked~.slidewrap .slidelist>li {
-    transform: translateX(-100%);
-  }
-
-  .section input[id="slide03"]:checked~.slidewrap .slidelist>li {
-    transform: translateX(-200%);
-  }
-
-  /* 이미지 슬라이드 CSS 끝 */
-
-  /* 댓글 CSS 임시 시작 */
-
-  .card-body {
-    flex: 1 1 auto;
-    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-    border: 1px solid black;
-    border-radius: 3px;
-    padding: 10px;
-    width: 90%;
-    margin: 0 auto 0 auto;
-  }
-
-  .mb-4 {
-    margin-top: 10px;
-  }
-
-  /* 댓글 CSS 임시 끝 */
 </style>
 
 <script>
@@ -381,132 +188,126 @@ a:link{
 
   <!-- 프로필 페이지 1 (박상신님) 스크롤 내리기 힘드시면 접어주세요 -->
   <div class="myprofile1" id="profilebox1" style="display: flex; flex-direction: row; align-items: center;">
-    <div class="flip" 
-    style=" width: 300px;
+    <div class="flip" style=" width: 300px;
     height: 400px;
     perspective: 1100px;
-    margin-left:50px;" 
-    id="filpcard">  
-        <div class="card" style="width: 300px; 
+    margin-left:50px;" id="filpcard">
+      <div class="card" style="width: 300px; 
         height: 400px; 
         position: relative;
         transition: .4s;
         transform-style: preserve-3d;">
-          
-          <div class="front" style="position: absolute;
+
+        <div class="front" style="position: absolute;
           width: 100%; 
           height: 100%;
           backface-visibility: hidden;
           display: flex; flex-direction: column; align-items: center;">
-           <img src="./프로필이미지/스페이드A.png" style="width:300px; height: 400px; object-fit:fill"></img>
-          </div>
-        
-          <div class="back" style="position: absolute;
+          <img src="./프로필이미지/스페이드A.png" style="width:300px; height: 400px; object-fit:fill"></img>
+        </div>
+
+        <div class="back" style="position: absolute;
           width: 100%; 
           height: 100%;
           backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 240)">
           <div style="padding:10px;">
-            <div class="mycontent"  style="display: flex; flex-direction: column; align-items: center; padding-top: 5%;">
-              <iframe width="100%" height="50%" src="https://www.youtube.com/embed/hoknJbAsOZY?si=qOWuf49ZHJ1raHm3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-              <span style="text-align: center; list-style-type: none; font-family:fantasy; line-height: 2;"> 
-                <br>안녕하세요.<br>A-2 "국밥"의 팀장<br>박상신입니다.<br> 캠프 5개월간 잘부탁드립니다!<br> 위의 노래는 최근 자주 듣는 곡입니다. </span>  
+            <div class="mycontent" style="display: flex; flex-direction: column; align-items: center; padding-top: 5%;">
+              <iframe width="100%" height="50%" src="https://www.youtube.com/embed/hoknJbAsOZY?si=qOWuf49ZHJ1raHm3"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <span style="text-align: center; list-style-type: none; font-family:fantasy; line-height: 2;">
+                <br>안녕하세요.<br>A-2 "국밥"의 팀장<br>박상신입니다.<br> 캠프 5개월간 잘부탁드립니다!<br> 위의 노래는 최근 자주 듣는 곡입니다. </span>
             </div>
-        </div>
-
           </div>
+
         </div>
       </div>
+    </div>
 
-    <div class="flip" 
-    style=" width: 300px;
+    <div class="flip" style=" width: 300px;
     height: 400px;
     perspective: 1100px; 
-    margin-left: 100px;" 
-    id="filpcard">  
-        <div class="card" style="width: 300px; 
+    margin-left: 100px;" id="filpcard">
+      <div class="card" style="width: 300px; 
         height: 400px; 
         position: relative;
         transition: .4s;
         transform-style: preserve-3d;">
-          
-          <div class="front" style="position: absolute;
+
+        <div class="front" style="position: absolute;
           width: 100%; 
           height: 100%;
           backface-visibility: hidden;">
-            <img src="./프로필이미지/불호.jpg" style="width:300px; height:400px; object-fit:cover;"></img>
-          </div>
-        
-          <div class="back" style="position: absolute;
+          <img src="./프로필이미지/불호.jpg" style="width:300px; height:400px; object-fit:cover;"></img>
+        </div>
+
+        <div class="back" style="position: absolute;
           width: 100%; 
           height: 100%;
           backface-visibility: hidden; transform: rotateY(180deg);">
           <div style="padding:10px;">
-            <div class="mycontent"  style="display: flex; flex-direction: column; align-items: center;">
-                <div title="티스토리" class="블로그">
-                  <strong>
-                    <a href="https://like-it-too.tistory.com/" target="_blank"
-                      ><img src="./프로필이미지/티스토리.png"></a>
-                  </strong>
-                </div>
-                <div title="깃허브" class="깃허브" style="margin: 10px;">
-                  <strong>
-                    <a href="https://github.com/dmlal" target="_blank">
-                        <img src="./프로필이미지/깃허브.png"></a>
-                  </strong>
-                </div>
-                <div title="멤버카드" class="멤버카드">
-                    <a
-                      href="https://www.notion.so/7f5b559aa6b342738566f2d33abce3ab?pvs=4"
-                      target="_blank">
-                      <img src="./프로필이미지/노션.png">
-                    </a>
-                </div>
+            <div class="mycontent" style="display: flex; flex-direction: column; align-items: center;">
+              <div title="티스토리" class="블로그">
+                <strong>
+                  <a href="https://like-it-too.tistory.com/" target="_blank"><img src="./프로필이미지/티스토리.png"></a>
+                </strong>
               </div>
-        </div>
-
+              <div title="깃허브" class="깃허브" style="margin: 10px;">
+                <strong>
+                  <a href="https://github.com/dmlal" target="_blank">
+                    <img src="./프로필이미지/깃허브.png"></a>
+                </strong>
+              </div>
+              <div title="멤버카드" class="멤버카드">
+                <a href="https://www.notion.so/7f5b559aa6b342738566f2d33abce3ab?pvs=4" target="_blank">
+                  <img src="./프로필이미지/노션.png">
+                </a>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
+    </div>
 
-      <div class="flip" 
-      style=" width: 300px;
+    <div class="flip" style=" width: 300px;
       height: 400px;
-      perspective: 1100px; margin-left: 100px;" 
-      id="filpcard">  
-          <div class="card" style="width: 300px; 
+      perspective: 1100px; margin-left: 100px;" id="filpcard">
+      <div class="card" style="width: 300px; 
           height: 400px; 
           position: relative;
           transition: .4s;
           transform-style: preserve-3d;">
-            
-            <div class="front" style="position: absolute;
+
+        <div class="front" style="position: absolute;
             width: 100%; 
             height: 100%;
             backface-visibility: hidden;">
-              <img src="./프로필이미지/intp.png" style="color: white; width:300px; height:400px; object-fit:fill;"></img>
-            </div>
-          
-            <div class="back" style="position: absolute;
+          <img src="./프로필이미지/intp.png" style="color: white; width:300px; height:400px; object-fit:fill;"></img>
+        </div>
+
+        <div class="back" style="position: absolute;
             width: 100%; 
             height: 100%;
             backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 204);">
-            <div style="padding-top:12px;">
-              <ul style="padding:20px; text-align: center; list-style-type: none; font-family:fantasy;" >
-                  <p style="font-size: x-large;">장점</p>
-                  <li>일처리가 깔끔한 것을 선호함</li>
-                  <li>새로운 것을 받아들이는것에 거부감이 없음</li>
-              </ul>
-              <ul style="padding:20px; text-align: center; list-style-type: none;">
-                  <p style="font-size: x-large;">협업스타일</p>
-                  <li>협업 상대와의 의사소통을 중요시함</li>
-                  <li>각자의 요구사항을 최대한 반영하는 것을 선호</li>
-              </ul>
+          <div style="padding-top:12px;">
+            <ul style="padding:20px; text-align: center; list-style-type: none; font-family:fantasy;">
+              <p style="font-size: x-large;">장점</p>
+              <li>일처리가 깔끔한 것을 선호함</li>
+              <li>새로운 것을 받아들이는것에 거부감이 없음</li>
+            </ul>
+            <ul style="padding:20px; text-align: center; list-style-type: none;">
+              <p style="font-size: x-large;">협업스타일</p>
+              <li>협업 상대와의 의사소통을 중요시함</li>
+              <li>각자의 요구사항을 최대한 반영하는 것을 선호</li>
+            </ul>
           </div>
-  
-            </div>
-          </div>
+
         </div>
+      </div>
     </div>
+  </div>
 
   <!-- 프로필 페이지 2(조원호님) 스크롤 내리기 힘드시면 접어주세요 -->
   <div class="myprofile2" id="profilebox2">
