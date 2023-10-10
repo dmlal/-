@@ -75,10 +75,6 @@
     color: gray;
   }
 
-  .editcom:hover {
-    color: black;
-  }
-
   .deletecom:hover {
     color: black;
   }
@@ -245,7 +241,6 @@
         ${comment}
       </div>
       <div class="editdel">
-          <span class="editcom" style="cursor: pointer;">수정</span>
           <span data-hello=${doc.id} class="deletecom" style=" cursor: pointer;">삭제</span>
     </div>`;
     $('#commentarea').append(temp);
@@ -583,7 +578,6 @@
           <div class="commnetContens">내용 뼈대</div>
         </div>
         <div class="editdel">
-          <span class="editcom" style="cursor: pointer;">수정</span>
           <span class="deletecom" style=" cursor: pointer;">삭제</span>
         </div>
       </div>
