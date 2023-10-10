@@ -260,21 +260,72 @@ a:link{
   .card-body {
     flex: 1 1 auto;
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-    border: 1px solid black;
+    border: 1px solid rgb(227, 207, 207);
     border-radius: 3px;
     padding: 10px;
     width: 90%;
     margin: 0 auto 0 auto;
   }
-
-  .mb-4 {
-    margin-top: 10px;
+  .idpwd{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0px;
+    padding: 5px;
   }
-
+  .form-floating mb-3{
+    margin-bottom: 0px;
+  }
+  .mb-4 {
+    margin-top: 1px;
+    
+    padding:5px;
+  }
+  #commentarea{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  .d-flex{
+    margin-bottom: 15px;
+    width:85%;
+    display: flex;
+    flex-direction: row;
+  }
+  .editdel{
+    width:30px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: right;
+    background-color: green;
+  }
   /* 댓글 CSS 임시 끝 */
 </style>
 
-<script>
+<script type="module">
+    // Firebase SDK 라이브러리 가져오기
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+// Firebase 구성 정보 설정
+const firebaseConfig = {
+  apiKey: "AIzaSyDrRTIRFuUPfykOxF7DLS-GCRp6Dqn-KzA",
+  authDomain: "sparta-27ea8.firebaseapp.com",
+  projectId: "sparta-27ea8",
+  storageBucket: "sparta-27ea8.appspot.com",
+  messagingSenderId: "161304824934",
+  appId: "1:161304824934:web:7d1d2938be312ae095f1a7",
+  measurementId: "G-DMWEQ4KHWD"
+};
+
+
+// Firebase 인스턴스 초기화
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
   $(document).ready(function () {
     $('#profilebox1').hide();
     $('#profilebox2').hide();
@@ -296,6 +347,43 @@ a:link{
     $('#profilebox2').slideUp();
     $('#profilebox3').slideToggle('slow');
   }
+
+  $("#addComment").click(async function () {
+    let id = $('#inputid').val();
+    let pwd = $('#inputpwd').val();
+    let comment = $('#inputcom').val();
+
+    let doc = {
+        'inputid':id,
+        'inputpwd':pwd,
+        'inputcom':comment
+    };
+    await addDoc(collection(db, "TP1_Comment"), doc);
+    window.location.reload();
+})
+
+let docs = await getDocs(collection(db, "TP1_Comment"));
+docs.forEach((doc) => {
+    let row = doc.data();
+    
+    let id = row['inputid'];
+    let pwd = row['inputpwd'];
+    let comment = row['inputcom'];
+    
+    let temp = `
+    <div class="d-flex">
+      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+          alt="..."></div>
+      <div class="ms-3">
+        <div class="fw-bold">${id}</div>
+        ${comment}
+      </div>
+      <button id="" type="button" class="btn btn-outline-primary">수정</button>
+      <button id="" type="button" class="btn btn-outline-primary">삭제</button>
+    </div>`;
+    $('#commentarea').append(temp);
+}); 
+
 </script>
 
 <body>
@@ -582,47 +670,20 @@ a:link{
   <!-- 댓글 -->
   <div class="card-body">
     <!-- Comment form-->
-    <div>댓글창!</div>
-    <div class="form-floating mb-3">
-      <input type="email" class="form-control" id="floatingInput" placeholder="Username">
-      <label for="floatingInput">Username</label>
+    <div class="idpwd">
+    <div class="form-floating mb-3" style="margin-bottom: 0px;">
+      <input type="email" class="form-control" id="inputid" placeholder="Name">
+      <label for="inputid">이름</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <input type="password" class="form-control" id="inputpwd" placeholder="Password">
+      <label for="inputpwd">비밀번호</label>
     </div>
-    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="댓글 입력..."></textarea></form>
-    <button onclick="addcomment()" type="button" class="btn btn-primary btn-lg">등록</button>
+</div>
+    <form class="mb-4"><textarea id="inputcom" class="form-control" rows="4" placeholder="댓글 입력"></textarea></form>
+    <button id="addComment" type="button" class="btn btn-outline-primary">등록</button>
     <!-- Comment with nested comments-->
-    <div class="d-flex mb-4">
-      <!-- Parent comment-->
-      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-          alt="..."></div>
-      <div class="ms-3">
-        <div class="fw-bold">Commenter Name</div>
-        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise.
-        Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-        <!-- Child comment 1-->
-        <div class="d-flex mt-4">
-          <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-              alt="..."></div>
-          <div class="ms-3">
-            <div class="fw-bold">Commenter Name</div>
-            And under those conditions, you cannot establish a capital-market evaluation of that enterprise.
-            You can't get investors.
-          </div>
-        </div>
-        <!-- Child comment 2-->
-        <div class="d-flex mt-4">
-          <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-              alt="..."></div>
-          <div class="ms-3">
-            <div class="fw-bold">Commenter Name</div>
-            When you put money directly to a problem, it makes a good headline.
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="commentarea" class="d-flex mb-4">
     <!-- Single comment-->
     <div class="d-flex">
       <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
@@ -630,8 +691,12 @@ a:link{
       <div class="ms-3">
         <div class="fw-bold">Commenter Name</div>
         When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile
-        that with statements of beneficence.
+        that with statements of beneficence. 
       </div>
+      <div class="editdel">
+      <span>수정</span>
+      <span>삭제</span>
+    </div>
     </div>
   </div>
 

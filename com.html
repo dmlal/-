@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>변경중</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+</head>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
+
+  * {
+    font-family: "Noto Sans KR";
+  }
+
+  .head {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('./img/title.png');
+    background-position: center;
+    background-size: cover;
+  }
+
+  .introduce {
+    margin-top: 30px;
+    max-width: 500px;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .myPages {
+    width: 100%;
+    margin: 30px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    margin: 0px 50px;
+    border: 0.5px solid gray;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+    cursor: pointer;
+  }
+
+  .cardtext {
+    margin: 3px auto 3px auto;
+    font-size: xx-large;
+    text-align: center;
+  }
+
+  /* card 크기 커지게 하는 css 시작 */
+
+  .card:hover,
+  .card:focus {
+    transform: scale(1.1);
+  }
+
+  .cardimg {
+    height: 18rem;
+    width: 18rem;
+  }
+
+  /* card 크기 커지게 하는 css 끝 */
+
+
+
+
+  /* 기존 프로필 CSS 시작 */
+
+  .myprofile {
+    padding: 10px 10px 10px 10px;
+    width: 90%;
+    margin: 30px auto 100px auto;
+    border: 1px solid black;
+    overflow: auto;
+  }
+
+  .profileleft {
+    border-right: 1px solid black;
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+
+  .profileright {
+    width: 50%;
+    height: 100%;
+    margin: 0px 0px 0px auto;
+  }
+
+  .imgbox {
+    height: 18rem;
+    width: 18rem;
+    margin-right: 10px;
+    border: 1px solid black;
+    float: left;
+  }
+
+  .profileimg {
+    height: 18rem;
+    width: 18rem;
+    padding-bottom: 10px;
+  }
+
+  /* 기존 프로필 CSS 끝 */
+
+  /* 2번 프로필 CSS 시작 (프로필별 각자 다른 CSS 적용 하시려면 이렇게 뒤에 숫자로 번호 적어주시고 적용해주세용) */
+
+    /* 프로필1 */
+    .myprofile1 {
+    padding: 20px;
+    width: 80%;
+    margin: 30px auto 100px auto;
+    border-top: 2px solid lightgray;
+    overflow: visible;
+  }
+
+.flip:hover .card {
+  transform: rotateY(180deg);
+}
+a:link{
+    color:black;
+}
+
+    /*  */
+
+  .myprofile2 {
+    padding: 10px 10px 10px 10px;
+    width: 90%;
+    margin: 30px auto 100px auto;
+    border: 1px solid black;
+    overflow: auto;
+    font-family: 'Noto Sans KR';
+    flex: 1 0 auto;
+    min-width: 600px;
+  }
+
+  .profileleft2 {
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+
+  .lefttext2 {
+    margin: auto 10px 10px 10px;
+  }
+
+  .profileright2 {
+    width: 50%;
+    margin: 0px 0px 0px auto;
+    border: 1px black solid;
+  }
+
+  .righttext2 {
+    margin: auto 10px 10px 10px;
+  }
+
+  .imgbox2 {
+    height: 18rem;
+    width: 18rem;
+    margin-right: 10px;
+    border: 1px solid black;
+    float: left;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profileimg2 {
+    height: 18rem;
+    width: 18rem;
+    padding-bottom: 10px;
+  }
+
+  /* 2번 프로필 CSS 끝 */
+
+  /* 이미지 슬라이드 CSS */
+
+  .section input[id*="slide"] {
+    display: none;
+  }
+
+  .section .slidewrap {
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .section .slidelist {
+    white-space: nowrap;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .section .slidelist>li {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    transition: all .5s;
+  }
+
+  .section .slidelist>li>a {
+    display: block;
+    position: relative;
+  }
+
+  .section .slidelist>li>a img {
+    width: 100%;
+  }
+
+  /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
+  .section .slidelist label {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 30px;
+    cursor: pointer;
+  }
+
+  .section .slidelist .left {
+    left: 30px;
+    background: url('./img/left.png') center center / 100% no-repeat;
+  }
+
+  .section .slidelist .right {
+    right: 30px;
+    background: url('./img/right.png') center center / 100% no-repeat;
+  }
+
+  /* INPUT 체크되면 변화값이 li까지 전달되는 스타일 */
+  .section input[id="slide01"]:checked~.slidewrap .slidelist>li {
+    transform: translateX(0%);
+  }
+
+  .section input[id="slide02"]:checked~.slidewrap .slidelist>li {
+    transform: translateX(-100%);
+  }
+
+  .section input[id="slide03"]:checked~.slidewrap .slidelist>li {
+    transform: translateX(-200%);
+  }
+
+  /* 이미지 슬라이드 CSS 끝 */
+
+  /* 댓글 CSS 임시 시작 */
+
+  .card-body {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    border: 1px solid rgb(227, 207, 207);
+    border-radius: 3px;
+    padding: 10px;
+    width: 90%;
+    margin: 0 auto 0 auto;
+  }
+  .idpwd{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0px;
+    padding: 5px;
+  }
+  .form-floating mb-3{
+    margin-bottom: 0px;
+  }
+  .mb-4 {
+    margin-top: 1px;
+    
+    padding:5px;
+  }
+  #commentarea{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  .d-flex{
+    margin-bottom: 15px;
+    width:85%;
+    display: flex;
+    flex-direction: row;
+  }
+  .editdel{
+    width:30px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: right;
+    background-color: green;
+  }
+  /* 댓글 CSS 임시 끝 */
+</style>
+
+<script type="module">
+    // Firebase SDK 라이브러리 가져오기
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+// Firebase 구성 정보 설정
+const firebaseConfig = {
+  apiKey: "AIzaSyDrRTIRFuUPfykOxF7DLS-GCRp6Dqn-KzA",
+  authDomain: "sparta-27ea8.firebaseapp.com",
+  projectId: "sparta-27ea8",
+  storageBucket: "sparta-27ea8.appspot.com",
+  messagingSenderId: "161304824934",
+  appId: "1:161304824934:web:7d1d2938be312ae095f1a7",
+  measurementId: "G-DMWEQ4KHWD"
+};
+
+
+// Firebase 인스턴스 초기화
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+  $(document).ready(function () {
+    $('#profilebox1').hide();
+    $('#profilebox2').hide();
+    $('#profilebox3').hide();
+  })
+  function openMyPage1() {
+    $('#profilebox1').slideToggle('slow');
+    $('#profilebox2').slideUp();
+    $('#profilebox3').slideUp();
+
+  }
+  function openMyPage2() {
+    $('#profilebox1').slideUp();
+    $('#profilebox2').slideToggle('slow');
+    $('#profilebox3').slideUp();
+  }
+  function openMyPage3() {
+    $('#profilebox1').slideUp();
+    $('#profilebox2').slideUp();
+    $('#profilebox3').slideToggle('slow');
+  }
+
+
+  $("#addComment").click(async function () {
+    let id = $('#inputid').val();
+    let pwd = $('#inputpwd').val();
+    let comment = $('#inputcom').val();
+
+    let doc = {
+        'inputid':id,
+        'inputpwd':pwd,
+        'inputcom':comment
+    };
+    await addDoc(collection(db, "TP1_Comment"), doc);
+    window.location.reload();
+})
+
+let docs = await getDocs(collection(db, "TP1_Comment"));
+docs.forEach((doc) => {
+    let row = doc.data();
+    
+    let id = row['inputid'];
+    let pwd = row['inputpwd'];
+    let comment = row['inputcom'];
+    
+    let temp = `
+    <div class="d-flex">
+      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+          alt="..."></div>
+      <div class="ms-3">
+        <div class="fw-bold">${id}</div>
+        ${comment}
+      </div>
+      <button id="" type="button" class="btn btn-outline-primary">수정</button>
+      <button id="" type="button" class="btn btn-outline-primary">삭제</button>
+    </div>`;
+    $('#commentarea').append(temp);
+}); 
+
+  function addComment(){
+    
+  }
+</script>
+
+<body>
+  <div class="head">
+  </div>
+  <!-- 이미지 슬라이드 -->
+  <div class="section">
+    <input type="radio" name="slide" id="slide01" checked>
+    <input type="radio" name="slide" id="slide02">
+    <input type="radio" name="slide" id="slide03">
+
+    <div class="slidewrap">
+      <ul class="slidelist">
+        <li>
+          <a>
+            <label for="slide03" class="left"></label>
+            <img src="./img/teamimg1.jpg">
+            <label for="slide02" class="right"></label>
+          </a>
+        </li>
+        <li>
+          <a>
+            <label for="slide01" class="left"></label>
+            <img src="./img/teamimg2.jpg">
+            <label for="slide03" class="right"></label>
+          </a>
+        </li>
+        <li>
+          <a>
+            <label for="slide02" class="left"></label>
+            <img src="./img/teamimg3.jpg">
+            <label for="slide01" class="right"></label>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 사진 카드 -->
+  <div>
+    <div class="myPages">
+      <div class="card" style="width: 18rem" tabindex="0">
+        <img src="./프로필이미지/눈.jpg" class="cardimg" alt="..." onclick="openMyPage1()" />
+        <div class="cardbody">
+          <p class="cardtext" style="
+              width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            ">
+            박상신
+          </p>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem" tabindex="0">
+        <img src="./img/card2.jpg" class="cardimg" alt="..." onclick="openMyPage2()" />
+        <div class="cardbody">
+          <p class="cardtext" style="
+              width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            ">
+            조원호
+          </p>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem" tabindex="0">
+        <img src="./img/test3.png" class="cardimg" alt="..." onclick="openMyPage3()" />
+        <div class="cardbody">
+          <p class="cardtext" style="
+              width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            ">
+            홍지운
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 1 (박상신님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile1" id="profilebox1" style="display: flex; flex-direction: row; align-items: center;">
+    <div class="flip" 
+    style=" width: 300px;
+    height: 400px;
+    perspective: 1100px;
+    margin-left:50px;" 
+    id="filpcard">  
+        <div class="card" style="width: 300px; 
+        height: 400px; 
+        position: relative;
+        transition: .4s;
+        transform-style: preserve-3d;">
+          
+          <div class="front" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden;
+          display: flex; flex-direction: column; align-items: center;">
+           <img src="./프로필이미지/스페이드A.png" style="width:300px; height: 400px; object-fit:fill"></img>
+          </div>
+        
+          <div class="back" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 240)">
+          <div style="padding:10px;">
+            <div class="mycontent"  style="display: flex; flex-direction: column; align-items: center; padding-top: 5%;">
+              <iframe width="100%" height="50%" src="https://www.youtube.com/embed/hoknJbAsOZY?si=qOWuf49ZHJ1raHm3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <span style="text-align: center; list-style-type: none; font-family:fantasy; line-height: 2;"> 
+                <br>안녕하세요.<br>A-2 "국밥"의 팀장<br>박상신입니다.<br> 캠프 5개월간 잘부탁드립니다!<br> 위의 노래는 최근 자주 듣는 곡입니다. </span>  
+            </div>
+        </div>
+
+          </div>
+        </div>
+      </div>
+
+    <div class="flip" 
+    style=" width: 300px;
+    height: 400px;
+    perspective: 1100px; 
+    margin-left: 100px;" 
+    id="filpcard">  
+        <div class="card" style="width: 300px; 
+        height: 400px; 
+        position: relative;
+        transition: .4s;
+        transform-style: preserve-3d;">
+          
+          <div class="front" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden;">
+            <img src="./프로필이미지/불호.jpg" style="width:300px; height:400px; object-fit:cover;"></img>
+          </div>
+        
+          <div class="back" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden; transform: rotateY(180deg);">
+          <div style="padding:10px;">
+            <div class="mycontent"  style="display: flex; flex-direction: column; align-items: center;">
+                <div title="티스토리" class="블로그">
+                  <strong>
+                    <a href="https://like-it-too.tistory.com/" target="_blank"
+                      ><img src="./프로필이미지/티스토리.png"></a>
+                  </strong>
+                </div>
+                <div title="깃허브" class="깃허브" style="margin: 10px;">
+                  <strong>
+                    <a href="https://github.com/dmlal" target="_blank">
+                        <img src="./프로필이미지/깃허브.png"></a>
+                  </strong>
+                </div>
+                <div title="멤버카드" class="멤버카드">
+                    <a
+                      href="https://www.notion.so/7f5b559aa6b342738566f2d33abce3ab?pvs=4"
+                      target="_blank">
+                      <img src="./프로필이미지/노션.png">
+                    </a>
+                </div>
+              </div>
+        </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="flip" 
+      style=" width: 300px;
+      height: 400px;
+      perspective: 1100px; margin-left: 100px;" 
+      id="filpcard">  
+          <div class="card" style="width: 300px; 
+          height: 400px; 
+          position: relative;
+          transition: .4s;
+          transform-style: preserve-3d;">
+            
+            <div class="front" style="position: absolute;
+            width: 100%; 
+            height: 100%;
+            backface-visibility: hidden;">
+              <img src="./프로필이미지/intp.png" style="color: white; width:300px; height:400px; object-fit:fill;"></img>
+            </div>
+          
+            <div class="back" style="position: absolute;
+            width: 100%; 
+            height: 100%;
+            backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 204);">
+            <div style="padding-top:12px;">
+              <ul style="padding:20px; text-align: center; list-style-type: none; font-family:fantasy;" >
+                  <p style="font-size: x-large;">장점</p>
+                  <li>일처리가 깔끔한 것을 선호함</li>
+                  <li>새로운 것을 받아들이는것에 거부감이 없음</li>
+              </ul>
+              <ul style="padding:20px; text-align: center; list-style-type: none;">
+                  <p style="font-size: x-large;">협업스타일</p>
+                  <li>협업 상대와의 의사소통을 중요시함</li>
+                  <li>각자의 요구사항을 최대한 반영하는 것을 선호</li>
+              </ul>
+          </div>
+  
+            </div>
+          </div>
+        </div>
+    </div>
+
+  <!-- 프로필 페이지 2(조원호님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile2" id="profilebox2">
+    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileleft2">
+      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
+      <div class="imgbox2">
+        <img src="./img/card2.jpg" class="profileimg2" style="display: block;">
+      </div>
+      <div class="lefttext2">
+        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
+        <h1 style="margin-top: 0px;">조원호 │ 스펀지 같은 개발자</h1>
+        <h2>Contact</h2>
+        <div>Email: wonow_@naver.com</div>
+        <div>Phone: 010-0000-0000</div>
+        <h2>Channel</h2>
+        <p><a href="https://wonowdaily.tistory.com" target="_blank">개발 블로그</a></p>
+        <p><a href="https://github.com/wonowonow" target="_blank">GitHub</a></p>
+      </div>
+    </div>
+
+    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileright2">
+      <div class="righttext2">
+        <div style="margin-top: 0px;">
+          안녕하세요! 개발자로서 웹 개발 역량을 키우기 위해 내일 배움 캠프에 참여하게 되었습니다!. <br><br>
+
+          고등학교 시절부터 군 입대하기 전까지 4년간 작곡을 하면서 창의적인 활동에 관심을 가졌습니다.<br>
+          평소 컴퓨터에 관심이 많아 막연하게 개발자의 꿈을 가지고 있었는데, 군 생활 때 AI, SW 교육을 수료하게 되면서 <br>
+          더욱 흥미를 느껴 개발자의 꿈을 확신하게 됐습니다.<br><br>
+
+          제 MBTI는 ENTP이며, 도전을 즐기고 아이디어가 떠오를 때 즉각적으로 실행으로 옮기는 스타일입니다.<br><br>
+
+          협업에서는 커뮤니케이션을 중요하게 생각합니다. 서로의 진행 상황을 공유하고 소통하면서 협업을 원활하게 진행할 수 있다고 믿습니다.<br><br>
+          앞으로 내일 배움 캠프에서 더 많은 것을 배우고, 팀원들과의 협업을 통해 성장하고 싶습니다. 아래는 제 개발 블로그 입니다. 😀
+        </div>
+      </div>
+    </div>
+    <div class="i" style="margin-top: 10px;">
+      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
+      <iframe src="https://wonowdaily.tistory.com/" width=100% height="600px" title=" 내용"></iframe>
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 3(홍지운님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile" id="profilebox3">
+    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileleft">
+      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
+      <div class="imgbox">
+        <img src="이미지 소스" class="profileimg" style="display: block;">
+      </div>
+      <div class="lefttext">
+        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
+        왼쪽 내용
+      </div>
+    </div>
+
+    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileright">
+      <div class="righttext">
+        <div style="margin-top: 0px;">
+          자기 소개 텍스트
+        </div>
+      </div>
+    </div>
+    <div class="i" style="margin-top: 10px;">
+      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
+      <!-- <iframe src="https://wonowdaily.tistory.com/" width=100% height="800px" title=" 내용"></iframe> -->
+    </div>
+  </div>
+
+  <!-- 댓글 -->
+  <div class="card-body">
+    <!-- Comment form-->
+    <div class="idpwd">
+    <div class="form-floating mb-3" style="margin-bottom: 0px;">
+      <input type="email" class="form-control" id="inputid" placeholder="Name">
+      <label for="inputid">이름</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="inputpwd" placeholder="Password">
+      <label for="inputpwd">비밀번호</label>
+    </div>
+</div>
+    <form class="mb-4"><textarea id="inputcom" class="form-control" rows="4" placeholder="댓글 입력"></textarea></form>
+    <button id="addComment" type="button" class="btn btn-outline-primary">등록</button>
+    <!-- Comment with nested comments-->
+    <div id="commentarea" class="d-flex mb-4">
+    <!-- Single comment-->
+    <div class="d-flex">
+      <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+          alt="..."></div>
+      <div class="ms-3">
+        <div class="fw-bold">Commenter Name</div>
+        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile
+        that with statements of beneficence. 
+      </div>
+      <div class="editdel">
+      <span>수정</span>
+      <span>삭제</span>
+    </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
