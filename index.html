@@ -216,6 +216,20 @@
       'inputpwd': pwd,
       'inputcom': comment
     };
+
+    if (!inputid.value) {
+      alert("이름을 입력하세요")
+      return false;
+    }
+    if (!inputpwd.value) {
+      alert("비밀번호를 입력하세요")
+      return false;
+    }
+    if (!inputcom.value) {
+      alert("방명록 내용을 입력하세요")
+      return false;
+    }
+
     await addDoc(collection(db, "TP1_Comment"), doc);
     window.location.reload();
   })
@@ -246,6 +260,7 @@
     $(this).closest('.d-flex').remove();
 
   });
+
 </script>
 
 <body>
@@ -531,11 +546,11 @@
       <div class="idpwdadd">
         <div class="idpwd">
           <div class="form-floating">
-            <input type="email" class="form-control" id="inputid" placeholder="Name">
+            <input type="email" class="form-control" id="inputid" placeholder="Name" maxlength="10">
             <label for="inputid">이름</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control" id="inputpwd" placeholder="Password">
+            <input type="password" class="form-control" id="inputpwd" placeholder="Password" maxlength="10">
             <label for="inputpwd">비밀번호</label>
           </div>
           <button id="addComment" type="button" class="btn btn-outline-primary">방명록 작성</button>
