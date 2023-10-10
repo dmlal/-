@@ -63,9 +63,7 @@
     flex-direction: column;
     margin-top: 10px;
   }
-
-  .ms-3 {}
-
+  
   .d-flex {
     padding: 10px;
     width: 100%;
@@ -88,8 +86,6 @@
   .fw-bold {
     font-size: large;
   }
-
-  .commnetContens {}
 
   /* 프로필1 */
   .myprofile1 {
@@ -164,7 +160,7 @@
   // Firebase SDK 라이브러리 가져오기
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
   import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-  import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+  import { collection, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
   import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 
@@ -250,7 +246,7 @@
       </div>
       <div class="editdel">
           <span class="editcom" style="cursor: pointer;">수정</span>
-          <span class="deletecom" style=" cursor: pointer;">삭제</span>
+          <span data-hello=${doc.id} class="deletecom" style=" cursor: pointer;">삭제</span>
     </div>`;
     $('#commentarea').append(temp);
   });
@@ -260,6 +256,23 @@
     $(this).closest('.d-flex').remove();
 
   });
+
+  $(document).on('click', '.deletecom',  function () {
+  const commentId = $(this).data('hello'); // 댓글 ID 가져오기
+  const ok = window.confirm("삭제하시겠습니까?");
+  console.log(commentId)
+  if (ok) {
+    try {
+      // Firestore에서 댓글 삭제
+      deleteDoc(doc(db, "TP1_Comment", commentId));
+      
+      // 성공적으로 삭제되면 DOM에서 해당 댓글 삭제
+      $(this).closest('.d-flex').remove();
+    } catch (error) {
+      console.error("댓글 삭제 중 오류 발생:", error);
+    }
+  }
+});
 
 </script>
 
