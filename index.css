@@ -239,6 +239,43 @@
 
   /* 2번 프로필 CSS 끝 */
 
+  /* 3번 프로필 CSS 시작 */
+  .experience img {
+      margin-right: 7px;
+      margin-top: 10px;
+      border: 5px;
+      border-style: solid;
+      border-color: lightgray;
+      border-image-outset: 10px;
+      width: 150px;
+      height: 180px;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .experience p {
+      font-size: 55px;
+      font-weight: 700;
+  }
+
+  /* for layout */
+  .contents1 {
+      width: 700px;
+      margin-left: 450px;
+  }
+
+  .contents2 {
+      width: 700px;
+      margin-left: 670px;
+      margin-top: 30px;
+  }
+
+  .year {
+      font-size: 17px;
+      opacity: 0.5;
+  }
+
+  /* 3번 프로필 CSS 끝 */
+
   /* 댓글 CSS 시작 */
   .card-body {
       flex: 1 1 auto;
