@@ -63,7 +63,7 @@
     flex-direction: column;
     margin-top: 10px;
   }
-  
+
   .d-flex {
     padding: 10px;
     width: 100%;
@@ -106,7 +106,8 @@
     padding: 10px 10px 10px 10px;
     width: 90%;
     margin: 30px auto 100px auto;
-    border: 1px solid black;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 5px;
     overflow: auto;
     font-family: 'Noto Sans KR';
     flex: 1 0 auto;
@@ -126,7 +127,8 @@
   .profileright2 {
     width: 50%;
     margin: 0px 0px 0px auto;
-    border: 1px black solid;
+    border: 1px rgb(214, 214, 214) solid;
+    border-radius: 5px;
   }
 
   .righttext2 {
@@ -137,16 +139,17 @@
     height: 18rem;
     width: 18rem;
     margin-right: 10px;
-    border: 1px solid black;
+    border: 1px solid rgb(214, 214, 214);
     float: left;
     flex-direction: column;
     align-items: center;
+    border-radius: 5px;
   }
 
   .profileimg2 {
     height: 18rem;
     width: 18rem;
-    padding-bottom: 10px;
+    border-radius: 5px;
   }
 
   /* 2번 프로필 CSS 끝 */
@@ -247,27 +250,21 @@
   });
 
   $(document).on('click', '.deletecom', function () {
+    const commentId = $(this).data('hello'); // 댓글 ID 가져오기
+    const ok = window.confirm("방명록을 삭제하시겠습니까?");
+    console.log(commentId)
+    if (ok) {
+      try {
+        // Firestore에서 댓글 삭제
+        deleteDoc(doc(db, "TP1_Comment", commentId));
 
-    $(this).closest('.d-flex').remove();
-
-  });
-
-  $(document).on('click', '.deletecom',  function () {
-  const commentId = $(this).data('hello'); // 댓글 ID 가져오기
-  const ok = window.confirm("삭제하시겠습니까?");
-  console.log(commentId)
-  if (ok) {
-    try {
-      // Firestore에서 댓글 삭제
-      deleteDoc(doc(db, "TP1_Comment", commentId));
-      
-      // 성공적으로 삭제되면 DOM에서 해당 댓글 삭제
-      $(this).closest('.d-flex').remove();
-    } catch (error) {
-      console.error("댓글 삭제 중 오류 발생:", error);
+        // 성공적으로 삭제되면 DOM에서 해당 댓글 삭제
+        $(this).closest('.d-flex').remove();
+      } catch (error) {
+        console.error("댓글 삭제 중 오류 발생:", error);
+      }
     }
-  }
-});
+  });
 
 </script>
 
@@ -310,8 +307,8 @@
   <!-- 사진 카드 -->
   <div>
     <div class="myPages">
-      <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./프로필이미지/눈.jpg" class="cardimg" alt="..." id="openMyPage1" />
+      <div class="card" tabindex="0" id="openMyPage1">
+        <img src="./프로필이미지/눈.jpg" class="cardimg" alt="..." />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -323,8 +320,8 @@
           </p>
         </div>
       </div>
-      <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/card2.jpg" class="cardimg" alt="..." id="openMyPage2" />
+      <div class="card" tabindex="0" id="openMyPage2">
+        <img src="./img/card2.jpg" class="cardimg" alt="..." />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -336,8 +333,8 @@
           </p>
         </div>
       </div>
-      <div class="card" style="width: 18rem" tabindex="0">
-        <img src="./img/test3.png" class="cardimg" alt="..." id="openMyPage3" />
+      <div class="card" tabindex="0" id="openMyPage3">
+        <img src="./img/test3.png" class="cardimg" alt="..." />
         <div class="cardbody">
           <p class="cardtext" style="
               width: 130px;
@@ -571,16 +568,6 @@
     </div>
     <!-- Comment with nested comments-->
     <div id="commentarea" class="d-flex mb-4">
-      <!-- Single comment-->
-      <div class="d-flex">
-        <div class="ms-3">
-          <div class="fw-bold">국밥</div>
-          <div class="commnetContens">든든한 국밥</div>
-        </div>
-        <div class="editdel">
-          <span class="deletecom" style=" cursor: pointer;">삭제</span>
-        </div>
-      </div>
     </div>
 
 </body>
