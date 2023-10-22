@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import static kiosk.main.choiceMenu;
+
 public class Order extends OrderResult{
     public void pickMenu(ArrayList<? extends Menu> menu) {
         Scanner sc = new Scanner(System.in);
@@ -52,6 +54,60 @@ public class Order extends OrderResult{
                 } else {
                     System.out.println("취소되었습니다.");
                 }
+                break;
+
+        }
+    }
+
+    public void plusMenu(ArrayList<? extends Menu> menu) {
+        Scanner sc = new Scanner(System.in);
+        int inputChoice = sc.nextInt();
+        int choice = inputChoice - 1;
+        sc.nextLine();
+        switch (choice) {
+            case 0:
+                System.out.println(menu.get(choice));
+                System.out.println("     주문묵록에 담으시겠습니까?");
+                System.out.println("       1.네    2.아니오");
+                int pick = sc.nextInt();
+                sc.nextLine();
+                if (pick == 1) {
+                    System.out.println("주문목록에 담았습니다.");
+                    addOrder(menu.get(choice), 1);
+                } else {
+                    System.out.println("취소되었습니다.");
+                }
+                break;
+
+            case 1:
+                System.out.println(menu.get(choice));
+                System.out.println("     주문묵록에 담으시겠습니까?");
+                System.out.println("       1.네    2.아니오");
+                int pick2 = sc.nextInt();
+                sc.nextLine();
+                if (pick2 == 1) {
+                    System.out.println("주문목록에 담았습니다.");
+                    addOrder(menu.get(choice), 1);
+                } else {
+                    System.out.println("취소되었습니다.");
+                }
+                break;
+
+            case 2:
+                System.out.println(menu.get(choice));
+                System.out.println("     주문묵록에 담으시겠습니까?");
+                System.out.println("        1.네    2.아니오");
+                int pick3 = sc.nextInt();
+                sc.nextLine();
+                if (pick3 == 1) {
+                    System.out.println("주문목록에 담았습니다.");
+                    addOrder(menu.get(choice), 1);
+                } else {
+                    System.out.println("취소되었습니다.");
+                }
+                break;
+
+            case 4:
                 break;
 
         }

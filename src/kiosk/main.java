@@ -67,6 +67,10 @@ public class main extends Menu{
                 System.out.println("[  "+ "M A I N  M E N U"+ "  ]");
                 choiceMenu(food);
                 order.mainMenu(food);
+                System.out.println("\n선택하신 상품에 메뉴를 추가하시겠습니까?");
+                System.out.println("원하시는 상품이 없다면 5번을 눌러주세요\n");
+                choiceMenu(topping);
+                order.plusMenu(topping);
                 alreadyview=false;
             } else if (select == 2) {
                 System.out.println("\n\n\n");
@@ -92,7 +96,7 @@ public class main extends Menu{
                 while (it.hasNext()) {
                     System.out.println(it.next());
                 }
-                System.out.println("총 판매액  " +OrderResult.getTotalSales() +"원");
+                System.out.println("\n\n총 판매액  " +OrderResult.getTotalSales() +"원");
                 System.out.println("\n\n고객이 사용하는 기능이 아니기 때문에 메뉴판은 자동으로 출력되지 않습니다.");
                 System.out.println("1 2 3 5 6을 눌러 이동해주세요.");
             }
