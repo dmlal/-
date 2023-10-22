@@ -8,49 +8,49 @@ import java.util.Scanner;
 import static kiosk.main.choiceMenu;
 
 public class Order extends OrderResult{
-    public void pickMenu(ArrayList<? extends Menu> menu) {
+    public void pickMenu(ArrayList<? extends Menu> menuList) {
         Scanner sc = new Scanner(System.in);
         int inputChoice = sc.nextInt();
         int choice = inputChoice - 1;
         sc.nextLine();
         switch (choice) {
             case 0:
-                System.out.println(menu.get(choice));
+                System.out.println(menuList.get(choice));
                 System.out.println("     주문묵록에 담으시겠습니까?");
                 System.out.println("       1.네    2.아니오");
                 int pick = sc.nextInt();
                 sc.nextLine();
                 if (pick == 1) {
                     System.out.println("주문목록에 담았습니다.");
-                    addOrder(menu.get(choice), 1);
+                    addOrder(menuList.get(choice), 1);
                 } else {
                     System.out.println("취소되었습니다.");
                 }
                 break;
 
             case 1:
-                System.out.println(menu.get(choice));
+                System.out.println(menuList.get(choice));
                 System.out.println("     주문묵록에 담으시겠습니까?");
                 System.out.println("       1.네    2.아니오");
                 int pick2 = sc.nextInt();
                 sc.nextLine();
                 if (pick2 == 1) {
                     System.out.println("주문목록에 담았습니다.");
-                    addOrder(menu.get(choice), 1);
+                    addOrder(menuList.get(choice), 1);
                 } else {
                     System.out.println("취소되었습니다.");
                 }
                 break;
 
             case 2:
-                System.out.println(menu.get(choice));
+                System.out.println(menuList.get(choice));
                 System.out.println("     주문묵록에 담으시겠습니까?");
                 System.out.println("        1.네    2.아니오");
                 int pick3 = sc.nextInt();
                 sc.nextLine();
                 if (pick3 == 1) {
                     System.out.println("주문목록에 담았습니다.");
-                    addOrder(menu.get(choice), 1);
+                    addOrder(menuList.get(choice), 1);
                 } else {
                     System.out.println("취소되었습니다.");
                 }
@@ -112,57 +112,6 @@ public class Order extends OrderResult{
 
         }
     }
-
-    public void mainMenu(ArrayList<? extends Menu> menu) {
-        Scanner sc = new Scanner(System.in);
-        int inputChoice = sc.nextInt();
-        int choice = inputChoice - 1;
-        sc.nextLine();
-        switch (choice) {
-            case 0:
-                System.out.println(menu.get(choice));
-                System.out.println("     주문묵록에 담으시겠습니까?");
-                System.out.println("       1.네    2.아니오");
-                int pick = sc.nextInt();
-                sc.nextLine();
-                if (pick == 1) {
-                    System.out.println("주문목록에 담았습니다.");
-                    addOrder(menu.get(choice), 1);
-                } else {
-                    System.out.println("취소되었습니다.");
-                }
-                break;
-
-            case 1:
-                System.out.println(menu.get(choice));
-                System.out.println("     주문묵록에 담으시겠습니까?");
-                System.out.println("       1.네    2.아니오");
-                int pick2 = sc.nextInt();
-                sc.nextLine();
-                if (pick2 == 1) {
-                    System.out.println("주문목록에 담았습니다.");
-                    addOrder(menu.get(choice), 1);
-                } else {
-                    System.out.println("취소되었습니다.");
-                }
-                break;
-
-            case 2:
-                System.out.println(menu.get(choice));
-                System.out.println("     주문묵록에 담으시겠습니까?");
-                System.out.println("       1.네    2.아니오");
-                int pick3 = sc.nextInt();
-                sc.nextLine();
-                if (pick3 == 1) {
-                    System.out.println("주문목록에 담았습니다.");
-                    addOrder(menu.get(choice), 1);
-                } else {
-                    System.out.println("취소되었습니다.");
-                }
-                break;
-        }
-    }
-
     private Map<Menu, Integer> orderMap = new HashMap<>();
 
     public void addOrder(Menu menu, int num) {
@@ -177,32 +126,28 @@ public class Order extends OrderResult{
 
     public void printOrder() {
         System.out.println(" 주문목록입니다. ");
-        int total = 0;
+        int totalPrice = 0;
 
         for (Map.Entry<Menu, Integer> entry : orderMap.entrySet()) {
             Menu menu = entry.getKey();
             int dishNum = entry.getValue();
-            int sales = dishNum * menu.getPrice();
+            int menuTotalPrice = dishNum * menu.getPrice();
 
             System.out.println(menu.getName() +"  "+ dishNum+ "개");
-            total += sales;
+            totalPrice += menuTotalPrice;
         }
-        System.out.println("총 금액은 " + total + " 원 입니다.");
+        System.out.println("총 금액은 " + totalPrice + " 원 입니다.");
         System.out.println("     \n주문하시겠습니까?");
         System.out.println("    1.주문하기    2.돌아가기");
         Scanner sc = new Scanner(System.in);
         int orderOk = sc.nextInt();
         sc.nextLine();
         if (orderOk == 1) {
-            /*
-            이 위치에 총 판매금액(total)
-            map의 키값, 밸류값 을 따로 빼돌리는 로직을 저장하면 된다
-             */
             for (Map.Entry<Menu, Integer> entry : orderMap.entrySet()) {
                 Menu menu = entry.getKey();
                 OrderResult.setSelledMenu(menu);
             }
-            setTotalSales(total);
+            setTotalSales(totalPrice);
             endOrder();
         } else if (orderOk == 2) {
             Menu.printMenu();
