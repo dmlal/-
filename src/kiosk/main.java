@@ -70,6 +70,7 @@ public class main extends Menu{
                 order.pickMenu(food);
                 System.out.println("\n선택하신 상품에 메뉴를 추가하시겠습니까?");
                 System.out.println("원하시는 상품이 없다면 5번을 눌러주세요\n");
+                //선택2번 옵션추가 구현부
                 choiceMenu(topping);
                 order.plusMenu(topping);
                 isMenuAlreadyPrint = false;
