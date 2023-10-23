@@ -1,9 +1,6 @@
 package kiosk;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import static kiosk.main.choiceMenu;
 
@@ -108,18 +105,25 @@ public class Order extends OrderResult {
         System.out.println("총 금액은 " + totalPrice + " 원 입니다.");
         System.out.println("     \n주문하시겠습니까?");
         System.out.println("    1.주문하기    2.돌아가기");
+        try {
         Scanner sc = new Scanner(System.in);
         int orderOk = sc.nextInt();
         sc.nextLine();
-        if (orderOk == 1) {
-            for (Map.Entry<Menu, Integer> entry : orderMap.entrySet()) {
-                Menu menu = entry.getKey();
-                OrderResult.setSelledMenu(menu);
+
+            if (orderOk == 1) {
+                for (Map.Entry<Menu, Integer> entry : orderMap.entrySet()) {
+                    Menu menu = entry.getKey();
+                    OrderResult.setSelledMenu(menu);
+                }
+                setTotalSales(totalPrice);
+                endOrder();
+            } else if (orderOk == 2) {
+                Menu.printMenu();
+            } else {
+                System.out.println("이거 누르시면 안되는데 이번만 봐드립니다!");
             }
-            setTotalSales(totalPrice);
-            endOrder();
-        } else if (orderOk == 2) {
-            Menu.printMenu();
+        } catch (InputMismatchException e) {
+            System.out.println("화면에 있는 숫자를 눌러주세요. 제발ㅠㅠ");
         }
     }
 

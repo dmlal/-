@@ -49,7 +49,9 @@ public class main extends Menu{
                 System.out.println("입력 오류! 메뉴 목록을 입력해주세요.");
                 continue;
             }
-
+            if(select != 1 || select != 2 || select != 3 || select != 5 || select != 6 || select != 0 ){
+                System.out.println("메뉴에 있는 숫자를 입력해주세요");
+            }
             if (select == 6) {
                 System.out.println("진행하던 주문을 취소하시겠습니까?");
                 System.out.println("  1. 확인    2. 취소");
