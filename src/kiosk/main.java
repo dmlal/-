@@ -9,7 +9,7 @@ public class main extends Menu{
         ArrayList<MainMenu> food = new ArrayList<>();
         ArrayList<SideMenu> sideFood = new ArrayList<>();
         ArrayList<Beverage> drink = new ArrayList<>();
-        ArrayList<PlusMenu> topping = new ArrayList<>();
+
 
         food.add(new MainMenu("엽기떡볶이", 15000, "일반적인 떡볶이"));
         food.add(new MainMenu("마라떡볶이", 15000, "마라맛 떡볶이"));
@@ -67,11 +67,11 @@ public class main extends Menu{
                 System.out.println("\n\n\n");
                 System.out.println("[  "+ "M A I N  M E N U"+ "  ]");
                 choiceMenu(food);
-                order.pickMenu(food);
-                System.out.println("\n선택하신 상품에 메뉴를 추가하시겠습니까?");
-                System.out.println("원하시는 상품이 없다면 5번을 눌러주세요\n");
-                choiceMenu(topping);
-                order.plusMenu(topping);
+                order.pickMainMenu(food);
+//                System.out.println("\n선택하신 상품에 메뉴를 추가하시겠습니까?");
+//                System.out.println("원하시는 상품이 없다면 5번을 눌러주세요\n");
+//                choiceMenu(topping);
+//                order.plusMenu(topping);
                 isMenuAlreadyPrint = false;
             } else if (select == 2) {
                 System.out.println("\n\n\n");
@@ -110,6 +110,7 @@ public class main extends Menu{
     //인텔리제이가 자동으로 추가함.  이유는 모르겠음.
 //    private static void pickMenu(ArrayList<MainMenu> food) {
 //    }
+    public static ArrayList<PlusMenu> topping = new ArrayList<>();
 
     public static void choiceMenu(ArrayList<? extends Menu> menu){
         for (int i = 0; i < menu.size(); i++) {
