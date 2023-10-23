@@ -70,10 +70,6 @@ public class main extends Menu{
                 System.out.println("[  "+ "M A I N  M E N U"+ "  ]");
                 choiceMenu(food);
                 order.pickMainMenu(food);
-//                System.out.println("\n선택하신 상품에 메뉴를 추가하시겠습니까?");
-//                System.out.println("원하시는 상품이 없다면 5번을 눌러주세요\n");
-//                choiceMenu(topping);
-//                order.plusMenu(topping);
                 isMenuAlreadyPrint = false;
             } else if (select == 2) {
                 System.out.println("\n\n\n");
@@ -93,7 +89,6 @@ public class main extends Menu{
                 printMenu();
             }
             if (select == 0) {
-//                OrderResult.getTotalSales();    판매금액이 0원일때 문구를 추가하기 위해 주석처리
                 System.out.println("현재까지 판매된 메뉴는 아래와 같습니다.");
                 Iterator it = OrderResult.getSelledMenu().iterator();
                 while (it.hasNext()) {
@@ -109,7 +104,7 @@ public class main extends Menu{
         }
     }
 
-    //인텔리제이가 자동으로 추가함.  이유는 모르겠음.
+    //인텔리제이가 자동으로 추가함.  이유는 모르겠음.  나중에 질문할것
 //    private static void pickMenu(ArrayList<MainMenu> food) {
 //    }
     public static ArrayList<PlusMenu> topping = new ArrayList<>();
