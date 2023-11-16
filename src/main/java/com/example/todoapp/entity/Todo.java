@@ -1,0 +1,37 @@
+package com.example.todoapp.entity;
+
+import com.example.todoapp.dto.TodoRequestDto;
+import jakarta.persistence.*;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@Table(name = "todo")
+@NoArgsConstructor
+public class Todo extends Timestamped{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column
+    private String title;
+    private String content;
+
+    public Todo(TodoRequestDto requestDto) {
+        this.username = requestDto.getUsername();
+        this.password = requestDto.getPassword();
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
+}
