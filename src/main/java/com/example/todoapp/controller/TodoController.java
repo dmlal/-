@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api")
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class TodoController {
 
@@ -33,6 +35,10 @@ public class TodoController {
     }
 
     // 전체목록 조회
+    @GetMapping("/posts")
+    public List<TodoResponseDto> getTodos(){
+        return todoService.getTodos();
+    }
 
     // 수정
 

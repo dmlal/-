@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,9 +29,15 @@ public class TodoService {
     public TodoResponseDto getTodo(Long todoId) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("해당 Todo카드를 찾을 수 없습니다."));
 
-        return new TodoResponseDto(todo)
+        return new TodoResponseDto(todo);
     }
 
 
+    public List<TodoResponseDto> getTodos() {
+        return todoRepository.findAllByOrderByCreatedAtDesc().stream()
+                .map(TodoResponseDto::new).toList();
 
+
+
+    }
 }
