@@ -24,8 +24,9 @@ public class Todo extends Timestamped{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String title;
+    @Column
     private String content;
 
     public Todo(TodoRequestDto requestDto) {

@@ -20,13 +20,17 @@ public class TodoController {
     // 작성
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
     public TodoResponseDto todoPost(@RequestBody TodoRequestDto requestDto) {
         TodoResponseDto responseDto = todoService.todoPost(requestDto);
         return responseDto;
     }
 
     // 조회
-//    @GetMapping("/posts")
+    @GetMapping("/{todoId}")
+    public TodoResponseDto getTodo(@PathVariable Long todoId){
+        return todoService.getTodo(todoId);
+    }
 
     // 전체목록 조회
 

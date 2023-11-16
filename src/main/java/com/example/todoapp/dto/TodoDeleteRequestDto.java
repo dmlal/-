@@ -1,4 +1,4 @@
 package com.example.todoapp.dto;
 
-public class UpdateRequestDto {
+public class TodoDeleteRequestDto {
 }

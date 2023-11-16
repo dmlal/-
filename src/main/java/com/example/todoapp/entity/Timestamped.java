@@ -23,3 +23,6 @@ public abstract class Timestamped {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
 }
+
+
+// 적용 끝
