@@ -48,7 +48,10 @@ public class TodoController {
     }
 
     // 삭제
+    @DeleteMapping("/{todoId}")
+    public void deleteTodo(@PathVariable Long todoId, @RequestHeader("password") String password){
+        todoService.deleteTodo(todoId, password);
+    }
 
-    // 완료처리 ?  메소드가 굳이 필요한가 의문이긴함
 
 }

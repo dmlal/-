@@ -9,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class TodoService {
     }
 
     public TodoResponseDto getTodo(Long todoId) {
-        Todo todo = getTodoENtity(todoId);
+        Todo todo = getTodoEntity(todoId);
 
         return new TodoResponseDto(todo);
     }
@@ -41,16 +39,25 @@ public class TodoService {
 
     @Transactional
     public TodoResponseDto updateTodo(Long todoId, TodoUpdateRequestDto requestDto) {
-        Todo todo = getTodoENtity(todoId);
-        if (!todo.getPassword().equals(requestDto.getPassword())) {
-            throw new NullPointerException("비밀번호가 일치하지 않습니다.");
-        }
+        Todo todo = getTodoEntity(todoId);
+        verifyPassword(todo, requestDto.getPassword());
         todo.update(requestDto);
         return new TodoResponseDto((todo));
     }
 
+    public void deleteTodo(Long todoId, String password) {
+        Todo todo = getTodoEntity(todoId);
+        verifyPassword(todo, password);
+        todoRepository.delete(todo);
+    }
 
-    private Todo getTodoENtity(Long todoId) {
+    private Todo getTodoEntity(Long todoId) {
         return todoRepository.findById(todoId).orElseThrow(() -> new NullPointerException("해당 Todo카드를 찾을 수 없습니다."));
+    }
+
+    private static void verifyPassword(Todo todo, String password) {
+        if (!todo.passwordMatches(password)) {
+            throw new NullPointerException("비밀번호가 일치하지 않습니다.");
+        }
     }
 }

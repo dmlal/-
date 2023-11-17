@@ -42,4 +42,8 @@ public class Todo extends Timestamped{
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
+
+    public boolean passwordMatches(String inputPassword) {
+        return this.password.equals(inputPassword);
+    }
 }
