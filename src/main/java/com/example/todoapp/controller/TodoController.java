@@ -2,6 +2,7 @@ package com.example.todoapp.controller;
 
 import com.example.todoapp.dto.TodoRequestDto;
 import com.example.todoapp.dto.TodoResponseDto;
+import com.example.todoapp.dto.TodoUpdateRequestDto;
 import com.example.todoapp.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,17 +31,21 @@ public class TodoController {
 
     // 조회
     @GetMapping("/{todoId}")
-    public TodoResponseDto getTodo(@PathVariable Long todoId){
+    public TodoResponseDto getTodo(@PathVariable Long todoId) {
         return todoService.getTodo(todoId);
     }
 
     // 전체목록 조회
     @GetMapping("/posts")
-    public List<TodoResponseDto> getTodos(){
+    public List<TodoResponseDto> getTodos() {
         return todoService.getTodos();
     }
 
     // 수정
+    @PatchMapping("/{todoId}")
+    public TodoResponseDto updateTodo(@PathVariable Long todoId, @RequestBody TodoUpdateRequestDto requestDto) {
+        return todoService.updateTodo(todoId, requestDto);
+    }
 
     // 삭제
 
