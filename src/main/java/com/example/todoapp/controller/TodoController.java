@@ -1,8 +1,11 @@
 package com.example.todoapp.controller;
 
+import com.example.todoapp.controller.exception.AuthException;
+import com.example.todoapp.controller.exception.TodoNotFoundException;
 import com.example.todoapp.dto.TodoRequestDto;
 import com.example.todoapp.dto.TodoResponseDto;
 import com.example.todoapp.dto.TodoUpdateRequestDto;
+import com.example.todoapp.dto.exception.ErrorResponseDto;
 import com.example.todoapp.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,4 +58,21 @@ public class TodoController {
     }
 
 
+    @ExceptionHandler(TodoNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> todoNotFoundExceptionHandler(TodoNotFoundException e){
+//        System.err.println(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponseDto(
+                        HttpStatus.NOT_FOUND.value(), e.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<ErrorResponseDto> todoNotFoundExceptionHandler(AuthException e){
+//        System.err.println(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponseDto(
+                        HttpStatus.UNAUTHORIZED.value(), e.getMessage()
+                ));
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.todoapp.service;
 
+import com.example.todoapp.controller.exception.AuthException;
+import com.example.todoapp.controller.exception.TodoNotFoundException;
 import com.example.todoapp.dto.TodoRequestDto;
 import com.example.todoapp.dto.TodoResponseDto;
 import com.example.todoapp.dto.TodoUpdateRequestDto;
@@ -52,12 +54,12 @@ public class TodoService {
     }
 
     private Todo getTodoEntity(Long todoId) {
-        return todoRepository.findById(todoId).orElseThrow(() -> new NullPointerException("해당 Todo카드를 찾을 수 없습니다."));
+        return todoRepository.findById(todoId).orElseThrow(() -> new TodoNotFoundException("해당 Todo카드를 찾을 수 없습니다."));
     }
 
     private static void verifyPassword(Todo todo, String password) {
         if (!todo.passwordMatches(password)) {
-            throw new NullPointerException("비밀번호가 일치하지 않습니다.");
+            throw new AuthException("비밀번호가 일치하지 않습니다.");
         }
     }
 }
