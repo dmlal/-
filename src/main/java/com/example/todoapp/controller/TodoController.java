@@ -60,7 +60,6 @@ public class TodoController {
 
     @ExceptionHandler(TodoNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> todoNotFoundExceptionHandler(TodoNotFoundException e){
-//        System.err.println(e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponseDto(
                         HttpStatus.NOT_FOUND.value(), e.getMessage()
@@ -69,7 +68,6 @@ public class TodoController {
 
     @ExceptionHandler(AuthException.class)
     public ResponseEntity<ErrorResponseDto> todoNotFoundExceptionHandler(AuthException e){
-//        System.err.println(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorResponseDto(
                         HttpStatus.UNAUTHORIZED.value(), e.getMessage()

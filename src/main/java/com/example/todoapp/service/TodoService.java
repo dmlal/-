@@ -47,6 +47,7 @@ public class TodoService {
         return new TodoResponseDto((todo));
     }
 
+    @Transactional
     public void deleteTodo(Long todoId, String password) {
         Todo todo = getTodoEntity(todoId);
         verifyPassword(todo, password);
