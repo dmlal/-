@@ -1,6 +1,8 @@
 package com.example.todoapp.auth;
 
 
+import com.example.todoapp.jwt.JwtUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +20,11 @@ import java.net.URLEncoder;
 public class AuthController {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    private final JwtUtil jwtUtil;
+
+    public AuthController(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     @GetMapping("/create-cookie")
     public String createCookie(HttpServletResponse res) {
@@ -54,6 +61,51 @@ public class AuthController {
 
         return "getSession : " + value;
     }
+
+    // 액세스토큰 생성
+    @GetMapping("/create-accesstoken")
+    public String createAccessToken(HttpServletResponse res) {
+        // Jwt 생성
+        String token = jwtUtil.createToken("Robbie");
+
+        // Jwt 쿠키 저장
+        jwtUtil.addAcceccTokenToCookie(token, res);
+
+        return "createAccessToken : " + token;
+    }
+
+    // 리프레시토큰 생성
+    @GetMapping("/create-refreshtoken")
+    public String createRefreshToken(HttpServletResponse res) {
+        // Jwt 생성
+        String refToken = jwtUtil.createRefreshToken("Robbie");
+
+        // Jwt 쿠키 저장
+        jwtUtil.addRefreshTokenToCookie(refToken,res);
+
+        return "createRefreshToken : " + refToken;
+    }
+
+    // 액세스토큰 가져오기
+    @GetMapping("/get-jwt")
+    public String getJwt(@CookieValue(JwtUtil.AUTH_HEADER) String tokenValue) {
+        // JWT 토큰 substring
+        String token = jwtUtil.substringToken(tokenValue);
+
+        // 토큰 검증
+        if(!jwtUtil.validateToken(token)){
+            throw new IllegalArgumentException("Token Error");
+        }
+
+        // 토큰에서 사용자 정보 가져오기
+        Claims info = jwtUtil.getUserInfoFromToken(token);
+        // 사용자 username
+        String username = info.getSubject();
+        System.out.println("username = " + username);
+
+        return "getJwt : " + username;
+    }
+
 
     public static void addCookie(String cookieValue, HttpServletResponse res) {
         try {

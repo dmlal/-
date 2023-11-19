@@ -11,12 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class SignupController {
 
@@ -32,6 +30,9 @@ public class SignupController {
         signupService.signUp(requestDto);
         return ResponseEntity.ok("회원가입이 완료되었습니다.");
     }
+
+    @PostMapping("/login")
+//    public
 
     @ExceptionHandler(DuplicatedUsernameException.class)
     public ResponseEntity<ErrorResponseDto> duplicatedUsernameExceptionHandler(DuplicatedUsernameException e){
