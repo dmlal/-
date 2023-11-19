@@ -3,11 +3,15 @@ package com.example.todoapp.controller;
 import com.example.todoapp.controller.exception.DuplicatedUsernameException;
 import com.example.todoapp.controller.exception.TodoNotFoundException;
 import com.example.todoapp.controller.exception.UserNotFoundException;
+import com.example.todoapp.dto.LoginRequestDto;
 import com.example.todoapp.dto.SignupRequestDto;
 import com.example.todoapp.dto.exception.ErrorResponseDto;
+import com.example.todoapp.jwt.JwtUtil;
 import com.example.todoapp.service.SignupService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class SignupController {
 
     private final SignupService signupService;
+    private final JwtUtil jwtUtil;
 
     @GetMapping("/signup")
     public String showSignup() {
@@ -32,7 +37,12 @@ public class SignupController {
     }
 
     @PostMapping("/login")
-//    public
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
+        signupService.login(requestDto, res);
+
+        HttpHeaders headers = new HttpHeaders();
+        return ResponseEntity.ok().headers(headers).body("로그인에 성공하였습니다.");
+    }
 
     @ExceptionHandler(DuplicatedUsernameException.class)
     public ResponseEntity<ErrorResponseDto> duplicatedUsernameExceptionHandler(DuplicatedUsernameException e){
