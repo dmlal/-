@@ -1,6 +1,7 @@
 package com.example.todoapp.entity;
 
 import com.example.todoapp.dto.ReplyRequestDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Reply {
 
     @ManyToOne
     @JoinColumn(name="todo_id")
+    @JsonBackReference
     private Todo todo;
 
     private String content;

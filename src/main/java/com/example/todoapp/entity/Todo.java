@@ -2,6 +2,7 @@ package com.example.todoapp.entity;
 
 import com.example.todoapp.dto.TodoRequestDto;
 import com.example.todoapp.dto.TodoUpdateRequestDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class Todo extends Timestamped{
     private Boolean isCompletedTodo = Boolean.FALSE;
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Reply> reply;
 
     @ManyToOne

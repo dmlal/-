@@ -70,7 +70,8 @@ public class TodoController {
         todoService.deleteTodo(todoId);
         return ResponseEntity.noContent().build();
     }
-
+    
+    // 완료 버튼
     @PatchMapping("/{todoId}/complete")
     public ResponseEntity<TodoResponseDto> completeTodo (@PathVariable Long todoId, @RequestHeader("Authorization") String token) {
         verifyToken(todoId, token);

@@ -28,6 +28,9 @@ git clone https://github.com/dmlal/Todo-app.git
 ```
 #### 2. 브라우저 url 실행
 
+포스트맨 API 명세 입니다.
+https://documenter.getpostman.com/view/30874094/2s9Ye8gFDU
+
 <br><br>
 #### ERD
 ![img.png](img.png)

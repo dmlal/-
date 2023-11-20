@@ -24,7 +24,7 @@ public class ReplyController {
     private final TodoService todoService;
 
 
-    @PostMapping("/reply-posts")
+    @PostMapping("/{todoId}/reply-posts")
     public ResponseEntity<Reply> replyPost(@PathVariable Long todoId, @RequestBody ReplyRequestDto requestDto, @RequestHeader("Authorization") String token) {
         token = token.replace("Bearer", "");
         if (!jwtUtil.validateToken(token)) {
@@ -35,13 +35,13 @@ public class ReplyController {
         return new ResponseEntity<>(reply, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/reply-edit")
+    @PatchMapping("/reply-edit/{replyId}")
     public Reply replyEdit(@PathVariable Long replyId, @RequestBody ReplyRequestDto replyRequestDto, @RequestHeader("Authorization") String token) {
         verifyToken(replyId, token);
         return replyService.replyEdit(replyId, replyRequestDto, token);
     }
 
-    @DeleteMapping("/reply-delete")
+    @DeleteMapping("/reply-delete/{replyId}")
     public ResponseEntity<?> replyDelete (@PathVariable Long replyId,@RequestHeader("Authorization") String token ) {
         verifyToken(replyId, token);
         replyService.replyDelete(replyId);
