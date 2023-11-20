@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -33,7 +35,12 @@ public class Todo extends Timestamped{
     @Column(name = "complete")
     private Boolean isCompletedTodo = Boolean.FALSE;
 
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL)
+    private List<Reply> reply;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Todo(TodoRequestDto requestDto) {
         this.username = requestDto.getUsername();
