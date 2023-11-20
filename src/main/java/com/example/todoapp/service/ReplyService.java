@@ -26,4 +26,20 @@ public class ReplyService {
 
         return replyRepository.save(reply);
     }
+
+    public Reply replyEdit(Long replyId, ReplyRequestDto replyRequestDto, String token) {
+        Reply reply = replyRepository.findById(replyId).orElseThrow(
+                () -> new TodoNotFoundException("해당 댓글을 찾을 수 없습니다.")
+        );
+        reply.update(replyRequestDto);
+        return replyRepository.save(reply);
+    }
+
+
+    public void replyDelete(Long replyId) {
+        Reply reply = replyRepository.findById(replyId).orElseThrow(
+                () -> new TodoNotFoundException("해당 댓글을 찾을 수 없습니다."));
+
+        replyRepository.delete(reply);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.todoapp.entity;
 
+import com.example.todoapp.dto.ReplyRequestDto;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -23,4 +24,7 @@ public class Reply {
 
     private String content;
 
+    public void update(ReplyRequestDto replyRequestDto) {
+        this.content = replyRequestDto.getContent();
+    }
 }
