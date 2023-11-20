@@ -22,7 +22,7 @@ public class JwtUtil {
     // JWT 생성
     public static final String AUTH_HEADER = "Authorization";
     public static final String AUTH_KEY = "auth";
-    public static final String BEARER_PREFIX = "Bearer ";
+    public static final String BEARER_PREFIX = "Bearer";
     public static final String REFRESH_HEADER = "RefreshToken";
     public static final String REFRESH_KEY = "refresh";
 
@@ -71,31 +71,21 @@ public class JwtUtil {
 
     // JWT Cookie 에 저장
     public void addAcceccTokenToCookie(String token, HttpServletResponse res) {
-        try {
-            token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20");
 
             Cookie cookie = new Cookie(AUTH_HEADER, token); // Name-Value
             cookie.setPath("/");
 
             // Response 객체에 Cookie 추가
             res.addCookie(cookie);
-        } catch (UnsupportedEncodingException e) {
-            logger.error(e.getMessage());
-        }
     }
 
     // 리프레시토큰  쿠키에 저장
     public void addRefreshTokenToCookie(String refToken, HttpServletResponse res){
-        try {
-            refToken = URLEncoder.encode(refToken, "utf-8").replaceAll("\\+", "%20");
 
             Cookie cookie = new Cookie(REFRESH_HEADER, refToken);
             cookie.setPath("/");
 
             res.addCookie(cookie);
-        } catch (UnsupportedEncodingException e) {
-            logger.error(e.getMessage());
-        }
     }
 
     // 액세스토큰, 리프레시토큰 substring
@@ -129,5 +119,10 @@ public class JwtUtil {
     // 토큰에서 사용자 정보 가져오기
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    }
+
+    public String getUserInfoFromTokenByString(String token) {
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        return claims.getSubject();
     }
 }

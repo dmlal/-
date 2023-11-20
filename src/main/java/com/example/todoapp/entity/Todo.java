@@ -30,6 +30,11 @@ public class Todo extends Timestamped{
     @Column
     private String content;
 
+    @Column(name = "complete")
+    private Boolean isCompletedTodo = Boolean.FALSE;
+
+
+
     public Todo(TodoRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.password = requestDto.getPassword();
@@ -41,6 +46,11 @@ public class Todo extends Timestamped{
         this.username = requestDto.getUsername();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+    }
+
+    // 완료처리
+    public void completeTodo() {
+        this.isCompletedTodo = true;
     }
 
     public boolean passwordMatches(String inputPassword) {

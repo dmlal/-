@@ -42,15 +42,13 @@ public class TodoService {
     @Transactional
     public TodoResponseDto updateTodo(Long todoId, TodoUpdateRequestDto requestDto) {
         Todo todo = getTodoEntity(todoId);
-        verifyPassword(todo, requestDto.getPassword());
         todo.update(requestDto);
         return new TodoResponseDto((todo));
     }
 
     @Transactional
-    public void deleteTodo(Long todoId, String password) {
+    public void deleteTodo(Long todoId) {
         Todo todo = getTodoEntity(todoId);
-        verifyPassword(todo, password);
         todoRepository.delete(todo);
     }
 
@@ -58,9 +56,20 @@ public class TodoService {
         return todoRepository.findById(todoId).orElseThrow(() -> new TodoNotFoundException("해당 Todo카드를 찾을 수 없습니다."));
     }
 
-    private static void verifyPassword(Todo todo, String password) {
-        if (!todo.passwordMatches(password)) {
-            throw new AuthException("비밀번호가 일치하지 않습니다.");
-        }
+
+    
+    // 토큰의 아이디와 비교하기 위한 메소드 작성
+    public String getUsername(Long todoId) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(
+                () -> new IllegalArgumentException("ID가 존재하지 않습니다.")
+        );
+        return todo.getUsername();
+    }
+
+    public TodoResponseDto completeTodo(Long todoId) {
+        Todo todo = getTodoEntity(todoId);
+        todo.completeTodo();
+        todoRepository.save(todo);
+        return new TodoResponseDto(todo);
     }
 }

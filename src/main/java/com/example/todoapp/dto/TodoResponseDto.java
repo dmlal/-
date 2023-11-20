@@ -18,6 +18,13 @@ public class TodoResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
+    public Boolean getCompletedTodo() {
+        return isCompletedTodo == null ? Boolean.FALSE : isCompletedTodo;
+    }
+
+    private Boolean isCompletedTodo = Boolean.FALSE;
+
+
     public TodoResponseDto(Todo todo) {
         this.id = todo.getId();
         this.username = todo.getUsername();
@@ -26,5 +33,6 @@ public class TodoResponseDto {
         this.content = todo.getContent();
         this.createdAt = todo.getCreatedAt();
         this.modifiedAt = todo.getModifiedAt();
+        this.isCompletedTodo = todo.getIsCompletedTodo();
     }
 }
