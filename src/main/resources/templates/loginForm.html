@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        function login(){
+            let id = $('#id').val();
+            let password = $('#password').val();
+
+            if (isValid(id, password) === false) {
+                return;
+            }
+
+            let data = {'username': id, 'password': password };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/user/login",
+                contentType: "application/json",
+                data: JSON.stringify(data)
+            });
+
+            location.href = "/";
+        }
+
+        function isValid(id, password) {
+            if (id === '') {
+                alert('id를 입력해주세요');
+                return false;
+            }
+            if (password === '') {
+                alert('비밀번호를 입력해주세요');
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="signup-group">
+    <div>
+        <label>아이디</label>
+        <input type="text" id="id">
+    </div>
+    <div>
+        <label>비밀번호</label>
+        <input type="text" id="password">
+    </div>
+    <button type="submit" onclick="login()">로그인</button>
+    <button type="submit" onclick="location.href='/api/user/signup'">회원가입</button>
+</div>
+
+</body>
+</html>

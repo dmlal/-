@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>회원가입 페이지</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        function signup() {
+
+            let id = $('#id').val();
+            let password = $('#password').val();
+            let email = $('#email').val();
+            let introduction = $('#introduction').val();
+
+            if (isValid(id, password, email, introduction) === false) {
+                return;
+            }
+
+            let data = {'username': id, 'password': password, 'email': email, 'introduction': introduction};
+
+            $.ajax({
+                type: "POST",
+                url: "/api/user/signup",
+                contentType: "application/json",
+                data: JSON.stringify(data)
+            });
+        }
+
+        function isValid(id, password, email, introduction) {
+            if (id === '') {
+                alert('id를 입력해주세요');
+                return false;
+            }
+            if (password === '') {
+                alert('비밀번호를 입력해주세요');
+                return false;
+            }
+            if (email === '') {
+                alert('제목을 입력해주세요');
+                return false;
+            }
+            if (introduction === '') {
+                alert('자기소개를 해주세요');
+            }
+            return true;
+        }
+
+    </script>
+</head>
+<body>
+<div class="signup-group">
+    <div>
+        <label>아이디</label>
+        <input type="text" id="id">
+    </div>
+    <div>
+        <label>비밀번호</label>
+        <input type="text" id="password">
+    </div>
+    <div>
+        <label>이메일</label>
+        <input type="text" id="email">
+    </div>
+    <div>
+        <label>자기소개</label>
+        <input type="text" id="introduction">
+    </div>
+    <button type="submit" onclick="signup()">등록</button>
+</div>
+
+</body>
+</html>
