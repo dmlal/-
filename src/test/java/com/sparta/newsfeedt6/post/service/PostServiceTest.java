@@ -2,6 +2,7 @@ package com.sparta.newsfeedt6.post.service;
 
 import com.sparta.newsfeedt6.post.dto.PostAddRequestDto;
 import com.sparta.newsfeedt6.post.dto.PostResponseDto;
+import com.sparta.newsfeedt6.post.dto.PostUpdateRequestDto;
 import com.sparta.newsfeedt6.post.entity.PostEntity;
 import com.sparta.newsfeedt6.post.repository.PostJpaReqository;
 import com.sparta.newsfeedt6.user.entity.User;
@@ -15,7 +16,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.parameters.P;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.security.access.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,6 +89,7 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("게시글 전체 조회")
     void getPosts() {
         // given
         User user = new User("username", "password", "email", "introduction");
@@ -106,7 +110,55 @@ class PostServiceTest {
     }
 
     @Test
+    @Transactional
+    @DisplayName("게시글 수정  성공")
     void updatePost() {
+        // given
+        Long postId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+        PostUpdateRequestDto requestDto = new PostUpdateRequestDto();
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+
+        given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
+
+
+        // when
+        PostResponseDto responseDto = postService.updatePost(postId, requestDto, user);
+        String title = responseDto.title();
+        String content = responseDto.content();
+
+        // then
+        assertEquals(postEntity.getTitle(), title);
+        assertEquals(postEntity.getContent(), content);
+
+
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("게시글 수정  실패  권한없음")
+    void failedUpdatePost() {
+        // given
+        Long postId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+
+        User user2 = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 2L);
+
+        PostUpdateRequestDto requestDto = new PostUpdateRequestDto();
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user2);
+
+        given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
+
+
+        // when then
+       assertThrows(AccessDeniedException.class, () ->{
+            postService.updatePost(postId, requestDto, user);
+        });
+
+
     }
 
     @Test
