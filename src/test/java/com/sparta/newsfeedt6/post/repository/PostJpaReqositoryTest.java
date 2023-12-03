@@ -47,6 +47,21 @@ class PostJpaReqositoryTest {
     }
 
     @Test
+    @DisplayName("제목으로 검색")
     void findByTitleContaining() {
+        // given
+        User user = new User("username", "password", "email", "introduction");
+        userRepository.save(user);
+        PostEntity postEntity1 = new PostEntity(new PostAddRequestDto("1", "1"), user);
+        PostEntity postEntity2 = new PostEntity(new PostAddRequestDto("2", "2"), user);
+
+        postJpaReqository.save(postEntity1);
+        postJpaReqository.save(postEntity2);
+
+        // when
+        List<PostEntity> postEntityList = postJpaReqository.findByTitleContaining(postEntity1.getTitle());
+
+        // then
+        assertThat(postEntityList.get(0)).isEqualTo(postEntity1);
     }
 }
