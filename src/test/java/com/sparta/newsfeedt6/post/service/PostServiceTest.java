@@ -16,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.parameters.P;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -81,11 +83,26 @@ class PostServiceTest {
         // then
         assertEquals(postEntity.getTitle(), title);
         assertEquals(postEntity.getContent(), content);
-
     }
 
     @Test
     void getPosts() {
+        // given
+        User user = new User("username", "password", "email", "introduction");
+        PostEntity postEntity1 = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity2 = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity3 = new PostEntity(new PostAddRequestDto(), user);
+
+        List<PostEntity> postEntityList = new ArrayList<>();
+
+        given(postJpaReqository.findAllByOrderByCreatedAtDesc()).willReturn(postEntityList);
+
+        // when
+        List<PostResponseDto> responseDtos = postService.getPosts();
+
+        // then
+        assertEquals(postEntityList.size(), postEntityList.size());
+
     }
 
     @Test
