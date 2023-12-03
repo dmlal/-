@@ -15,6 +15,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.parameters.P;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -60,7 +63,24 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("게시글 단건 조회")
     void getPost() {
+        // given
+        Long postId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+
+        given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
+
+        // when
+        PostResponseDto responseDto = postService.getPost(postId);
+        String title = responseDto.title();
+        String content = responseDto.content();
+
+        // then
+        assertEquals(postEntity.getTitle(), title);
+        assertEquals(postEntity.getContent(), content);
 
     }
 
