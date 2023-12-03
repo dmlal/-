@@ -1,7 +1,6 @@
 package com.sparta.newsfeedt6.user.repository;
 
 import com.sparta.newsfeedt6.user.dto.SignupRequestDto;
-import com.sparta.newsfeedt6.user.entity.EmailVerification;
 import com.sparta.newsfeedt6.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -19,7 +19,36 @@ class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
+    @DisplayName(" username 찾기 성공")
     void findByUsername() {
+        // given
+        String username = "테스트1";
+        User user = new User(username, "password", "email", "introduction");
+        userRepository.save(user);
+
+        // when
+        Optional<User> getUserFromDb = userRepository.findByUsername(username);
+
+        // then
+        assertTrue(getUserFromDb.isPresent(), "저장된 사용자 찾지못함");
+        assertEquals(username, getUserFromDb.get().getUsername());
+    }
+
+    @Test
+    @DisplayName(" username 찾기 실패")
+    void failedFindByUsername() {
+        // given
+        String username = "테스트1";
+        User user = new User(username, "password", "email", "introduction");
+        userRepository.save(user);
+
+        String username2 = "테스트2";
+
+        // when
+        Optional<User> getUserFromDb = userRepository.findByUsername(username2);
+
+        // then
+        assertFalse(getUserFromDb.isPresent(), "저장된 사용자 찾지못함");
     }
 
     @Test
