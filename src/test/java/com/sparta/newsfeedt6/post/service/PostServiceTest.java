@@ -14,18 +14,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.security.access.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -60,6 +60,8 @@ class PostServiceTest {
 
         // when
         PostResponseDto responseDto = postService.addPost(requestDto, user);
+
+        // responseDto가 Record 라서 변수 생성
         String title = responseDto.title();
         String content = responseDto.content();
 
@@ -183,4 +185,30 @@ class PostServiceTest {
         // then
         verify(postJpaReqository).delete(postEntity);
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    @DisplayName("게시글 삭제 실패  권한없음")
+    void failedDeletePost() {
+        // given
+        Long postId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+
+        User user2 = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 2L);
+
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user2);
+
+        given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
+
+
+        // when then
+        assertThrows(AccessDeniedException.class, () ->{
+            postService.deletePost(postId, user);
+        });
+    }
+
+
 }
