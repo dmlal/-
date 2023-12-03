@@ -1,4 +1,4 @@
-# newsfeed-t6
+# 뉴스피드 테스트코드 
 
 ## 사용 기술
 ### 프로그래밍 언어: 	![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -13,31 +13,23 @@
 ### Spring Boot 3.1.5
 <br>
 
-## 핵심 구현 기능
-#### 회원가입, 로그인 : 사용자는 회원가입, 로그인하여 사용권한을 얻을 수 있습니다.
-#### 게시글 작성, 조회, 수정, 삭제    
-#### 댓글 작성, 수정, 삭제
-#### 
-#### 특이사항 
-<ul>
-<li>회원가입시 이메일 정규식을 적용하여 네이버와 지메일만 허용</li>
-<li><strong>회원가입시 이메일 인증 추가</strong></li>
-<br>
+## 단위테스트 구현
+
+
 
 ## API 명세
 
-```agsl
+```
 https://documenter.getpostman.com/view/30874094/2s9YeEarLn
 ```
 
-</ul>
 <br>
 
 
 ## 애플리케이션 실행
 #### 1. git clone
 ```
-git clone https://github.com/alstjd2627/newsfeed-t6.git
+git clone https://github.com/dmlal/testcode.git
 ```
 
 #### 2. 환경변수 설정
@@ -63,8 +55,6 @@ port=???;db_name=???;username=???;password=???;jwt.secret.key=???;
 mail=???;mailpwd=???;  
 ```
 
-#### 3. 
-   
 
 
 
