@@ -50,7 +50,7 @@ class PostServiceTest {
     @DisplayName("게시글 작성")
     void addPost() {
         // given
-        PostAddRequestDto requestDto = new PostAddRequestDto();
+        PostAddRequestDto requestDto = new PostAddRequestDto("1", "1");
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
         PostEntity postEntity = new PostEntity(requestDto, user);
@@ -78,7 +78,7 @@ class PostServiceTest {
         Long postId = 1L;
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "1"), user);
 
         given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
 
@@ -97,9 +97,9 @@ class PostServiceTest {
     void getPosts() {
         // given
         User user = new User("username", "password", "email", "introduction");
-        PostEntity postEntity1 = new PostEntity(new PostAddRequestDto(), user);
-        PostEntity postEntity2 = new PostEntity(new PostAddRequestDto(), user);
-        PostEntity postEntity3 = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity1 = new PostEntity(new PostAddRequestDto("1", "1"), user);
+        PostEntity postEntity2 = new PostEntity(new PostAddRequestDto("2", "1"), user);
+        PostEntity postEntity3 = new PostEntity(new PostAddRequestDto("3", "3"), user);
 
         List<PostEntity> postEntityList = new ArrayList<>();
 
@@ -122,7 +122,7 @@ class PostServiceTest {
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
         PostUpdateRequestDto requestDto = new PostUpdateRequestDto();
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "1"), user);
 
         given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
 
@@ -152,7 +152,7 @@ class PostServiceTest {
         ReflectionTestUtils.setField(user, "id", 2L);
 
         PostUpdateRequestDto requestDto = new PostUpdateRequestDto();
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user2);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "1"), user2);
 
         given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
 
@@ -174,7 +174,7 @@ class PostServiceTest {
         Long postId = 1L;
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "1"), user);
 
         given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
 
@@ -199,7 +199,7 @@ class PostServiceTest {
         User user2 = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 2L);
 
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user2);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "1"), user2);
 
         given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
 

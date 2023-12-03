@@ -51,7 +51,7 @@ class CommentServiceTest {
         requestDto.setContent("댓글 작성");
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "1"), user);
 
         given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
 
@@ -90,7 +90,7 @@ class CommentServiceTest {
         requestDto.setContent("댓글 수정");
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "3"), user);
         Comment comment = new Comment(requestDto.getContent(), user, postEntity);
 
         given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
@@ -115,7 +115,7 @@ class CommentServiceTest {
         User user2 = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 2L);
 
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "3"), user);
         Comment comment = new Comment(requestDto.getContent(), user2, postEntity);
 
         given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
@@ -134,7 +134,7 @@ class CommentServiceTest {
         Long commentId = 1L;
         User user = new User("username", "password", "email", "introduction");
         ReflectionTestUtils.setField(user, "id", 1L);
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1" , "23"), user);
         Comment comment = new Comment("content", user, postEntity);
 
         given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
@@ -158,12 +158,12 @@ class CommentServiceTest {
         ReflectionTestUtils.setField(user, "id", 2L);
 
 
-        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("1", "34"), user);
         Comment comment = new Comment("content", user2, postEntity);
 
         given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
 
-        // when  then
+        // when
         assertThrows(AccessDeniedException.class, () -> {
             commentService.deleteComment(commentId, user);
         });
