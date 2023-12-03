@@ -101,7 +101,7 @@ class PostServiceTest {
         List<PostResponseDto> responseDtos = postService.getPosts();
 
         // then
-        assertEquals(postEntityList.size(), postEntityList.size());
+        assertEquals(postEntityList.size(), responseDtos.size());
 
     }
 
