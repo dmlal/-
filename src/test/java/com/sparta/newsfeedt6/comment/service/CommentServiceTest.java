@@ -24,6 +24,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class CommentServiceTest {
@@ -126,6 +127,22 @@ class CommentServiceTest {
     }
 
     @Test
+    @DisplayName("댓글 삭제 성공")
+    @Transactional
     void deleteComment() {
+        // given
+        Long commentId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        Comment comment = new Comment("content", user, postEntity);
+
+        given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
+
+        // when
+        commentService.deleteComment(commentId, user);
+        // then
+        verify(commentRepository).delete(comment);
+
     }
 }
