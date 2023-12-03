@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,6 +99,30 @@ class CommentServiceTest {
 
         // then
         assertEquals(requestDto.getContent(), responseDto.getContent());
+    }
+
+    @Test
+    @DisplayName("댓글 수정 실패")
+    @Transactional
+    void failedUpdateComment() {
+        // given
+        Long commentId = 1L;
+        CommentEditRequestDto requestDto = new CommentEditRequestDto();
+        requestDto.setContent("댓글 수정");
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+        User user2 = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 2L);
+
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        Comment comment = new Comment(requestDto.getContent(), user2, postEntity);
+
+        given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
+
+        // when  then
+        assertThrows(AccessDeniedException.class, () -> {
+            commentService.updateComment(commentId, requestDto, user);
+        });
     }
 
     @Test
