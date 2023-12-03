@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.parameters.P;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTest {
@@ -162,6 +164,23 @@ class PostServiceTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
+    @DisplayName("게시글 삭제")
     void deletePost() {
+        // given
+        Long postId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+
+        given(postJpaReqository.findById(postId)).willReturn(Optional.of(postEntity));
+
+
+        // when
+        postService.deletePost(postId, user);
+
+        // then
+        verify(postJpaReqository).delete(postEntity);
     }
 }
