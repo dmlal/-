@@ -143,6 +143,30 @@ class CommentServiceTest {
         commentService.deleteComment(commentId, user);
         // then
         verify(commentRepository).delete(comment);
+    }
+
+    @Test
+    @DisplayName("댓글 삭제 실패")
+    @Transactional
+    void failedDeleteComment() {
+        // given
+        Long commentId = 1L;
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+
+        User user2 = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 2L);
+
+
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        Comment comment = new Comment("content", user2, postEntity);
+
+        given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
+
+        // when  then
+        assertThrows(AccessDeniedException.class, () -> {
+            commentService.deleteComment(commentId, user);
+        });
 
     }
 }
