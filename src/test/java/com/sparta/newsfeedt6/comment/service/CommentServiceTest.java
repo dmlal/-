@@ -1,7 +1,9 @@
 package com.sparta.newsfeedt6.comment.service;
 
+import com.sparta.newsfeedt6.comment.dto.CommentEditRequestDto;
 import com.sparta.newsfeedt6.comment.dto.CommentRequestDto;
 import com.sparta.newsfeedt6.comment.dto.CommentResponseDto;
+import com.sparta.newsfeedt6.comment.entity.Comment;
 import com.sparta.newsfeedt6.comment.repository.CommentRepository;
 import com.sparta.newsfeedt6.post.dto.PostAddRequestDto;
 import com.sparta.newsfeedt6.post.entity.PostEntity;
@@ -15,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -76,7 +79,25 @@ class CommentServiceTest {
     }
 
     @Test
+    @DisplayName("댓글 수정 성공")
+    @Transactional
     void updateComment() {
+        // given
+        Long commentId = 1L;
+        CommentEditRequestDto requestDto = new CommentEditRequestDto();
+        requestDto.setContent("댓글 수정");
+        User user = new User("username", "password", "email", "introduction");
+        ReflectionTestUtils.setField(user, "id", 1L);
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto(), user);
+        Comment comment = new Comment(requestDto.getContent(), user, postEntity);
+
+        given(commentRepository.findById(commentId)).willReturn(Optional.of(comment));
+
+        // when
+        CommentResponseDto responseDto = commentService.updateComment(commentId, requestDto, user);
+
+        // then
+        assertEquals(requestDto.getContent(), responseDto.getContent());
     }
 
     @Test
