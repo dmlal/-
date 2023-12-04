@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.newsfeedt6.mvc.MockSpringSecurityFilter;
 import com.sparta.newsfeedt6.post.dto.PostAddRequestDto;
 import com.sparta.newsfeedt6.post.dto.PostResponseDto;
+import com.sparta.newsfeedt6.post.dto.PostUpdateRequestDto;
 import com.sparta.newsfeedt6.post.entity.PostEntity;
 import com.sparta.newsfeedt6.post.service.PostService;
 import com.sparta.newsfeedt6.security.UserDetailsImpl;
@@ -170,7 +171,24 @@ class PostControllerTest {
     }
 
     @Test
-    void updatePost() {
-    }
+    @DisplayName(" 수정")
+    void updatePost() throws Exception{
+        // given
+        Long postId = 1L;
+        PostUpdateRequestDto requestDto = new PostUpdateRequestDto("喝", "요정");
+        User user = new User("컨트롤러테스트", "12341234", "123123123@gmail.com", "ROLE_USER");
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("喝","요정"), user);
+        String inputContent = new ObjectMapper().writeValueAsString(requestDto);
+        PostResponseDto responseDto = new PostResponseDto(postEntity);
+        given(postService.updatePost(1L, requestDto, user)).willReturn(responseDto);
 
+        // when then
+        mvc.perform(
+                        patch("/api/posts/" + postId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(inputContent)
+                                .principal(mockPrincipal)
+                ).andExpect(status().isOk())
+                .andDo(print());
+    }
 }
