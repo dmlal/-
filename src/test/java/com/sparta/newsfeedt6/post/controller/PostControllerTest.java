@@ -10,6 +10,7 @@ import com.sparta.newsfeedt6.security.UserDetailsImpl;
 import com.sparta.newsfeedt6.security.WebSecurityConfig;
 import com.sparta.newsfeedt6.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,13 +34,15 @@ import org.springframework.web.context.WebApplicationContext;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(
@@ -99,6 +102,7 @@ class PostControllerTest {
 
 
     @Test
+    @DisplayName(" 컨트롤러 게시글 작성")
     void addPost() throws Exception {
         // given
         PostAddRequestDto requestDto = new PostAddRequestDto("컨트롤러 테스트", "제발 성공");
@@ -109,7 +113,7 @@ class PostControllerTest {
         PostResponseDto responseDto = new PostResponseDto(postEntity);
         given(postService.addPost(requestDto, user)).willReturn(responseDto);
 
-        // when
+        // when then
         mvc.perform(
                         post("/api/posts")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -120,11 +124,49 @@ class PostControllerTest {
     }
 
     @Test
-    void getPost() {
+    @DisplayName(" 컨트롤러 단건 조회")
+    void getPost() throws Exception {
+        // given
+        Long postId = 1L;
+        User user = new User("컨트롤러테스트", "12341234", "123123123@gmail.com", "ROLE_USER");
+        PostEntity postEntity = new PostEntity(new PostAddRequestDto("title","content"), user);
+        PostResponseDto responseDto = new PostResponseDto(postEntity);
+
+        given(postService.getPost(postId)).willReturn(responseDto);
+
+        // when then
+        mvc.perform(
+                        get("/api/posts/" + postId)
+                                .principal(mockPrincipal)
+                ).andExpect(status().isOk())
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(responseDto)))
+                .andDo(print());
+
     }
 
     @Test
-    void getPosts() {
+    @DisplayName("게시글 전체 조회")
+    void getPosts() throws Exception{
+        // given
+        User user = new User("컨트롤러테스트", "12341234", "123123123@gmail.com", "ROLE_USER");
+        PostEntity postEntity1 = new PostEntity(new PostAddRequestDto("title1","content1"), user);
+        PostEntity postEntity2 = new PostEntity(new PostAddRequestDto("title2","content2"), user);
+        PostEntity postEntity3 = new PostEntity(new PostAddRequestDto("title3","content3"), user);
+
+        List<PostResponseDto> responseDtoList = new ArrayList<>();
+        responseDtoList.add(new PostResponseDto(postEntity1));
+        responseDtoList.add(new PostResponseDto(postEntity2));
+        responseDtoList.add(new PostResponseDto(postEntity3));
+
+        given(postService.getPosts()).willReturn(responseDtoList);
+
+        // when then
+        mvc.perform(
+                        get("/api/posts")
+                                .principal(mockPrincipal)
+                ).andExpect(status().isOk())
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(responseDtoList)))
+                .andDo(print());
     }
 
     @Test
