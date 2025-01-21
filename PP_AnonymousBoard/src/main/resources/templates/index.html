@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Board Page</title>
+</head>
+<body>
+<h1>Board Page</h1>
+
+<h2>Write Board</h2>
+<form id="writeForm">
+    <input type="text" id="userName" placeholder="Your Name"><br>
+    <input type="text" id="title" placeholder="Title"><br>
+    <textarea id="content" placeholder="Content"></textarea><br>
+    <input type="text" id="password" placeholder="Password"><br>
+    <button type="button" onclick="writeBoard()">Submit</button>
+</form>
+
+<h2>Get All Boards</h2>
+<div id="allBoards"></div>
+
+<script>
+    // Function to fetch and display all boards
+    function getAllBoards() {
+        fetch('/api/postlist')
+            .then(response => response.json())
+            .then(data => {
+                let boardHTML = '<ul>';
+                data.forEach(board => {
+                    boardHTML += `<li>${board.title} by ${board.userName}</li>`;
+                });
+                boardHTML += '</ul>';
+                document.getElementById('allBoards').innerHTML = boardHTML;
+            });
+    }
+
+    // Function to write a new board
+    function writeBoard() {
+        const userName = document.getElementById('userName').value;
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const password = document.getElementById('password').value;
+
+        fetch('/api/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userName,
+                title,
+                content,
+                password
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert('Board created successfully');
+                getAllBoards();
+            });
+    }
+
+    // Fetch and display all boards on load
+    getAllBoards();
+</script>
+</body>
+</html>
