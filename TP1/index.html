@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>국밥팀</title>
+  <meta name="viewport" content="width=device-width" />
+  <meta property="og:image" content="https://i.ibb.co/QmDfrtW/001-2.jpg" />
+  <meta name="twitter:image" content="https://i.ibb.co/QmDfrtW/001-2.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
+  <meta property="og:title" content="국밥🍲" />
+  <meta property="twitter:title" content="국밥🍲" />
+  <meta property="og:description" content="든든한 국밥처럼 개발 역량을 강화하고 함께 성장하는 팀 💪🚀" />
+  <meta property="twitter:description" content="든든한 국밥처럼 개발 역량을 강화하고 함께 성장하는 팀 💪🚀" />
+  <link rel="apple-touch-icon" sizes="57x57" href="./img/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="./img/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="./img/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="./img/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="./img/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="./img/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="./img/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="./img/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./img/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="./img/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="./img/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="./img/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<script type="module">
+  // Firebase SDK 라이브러리 가져오기
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+  import { collection, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+  import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+  // Firebase 구성 정보 설정
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrRTIRFuUPfykOxF7DLS-GCRp6Dqn-KzA",
+    authDomain: "sparta-27ea8.firebaseapp.com",
+    projectId: "sparta-27ea8",
+    storageBucket: "sparta-27ea8.appspot.com",
+    messagingSenderId: "161304824934",
+    appId: "1:161304824934:web:7d1d2938be312ae095f1a7",
+    measurementId: "G-DMWEQ4KHWD"
+  };
+
+
+  // Firebase 인스턴스 초기화
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  $('#profilebox1').hide();
+  $('#profilebox2').hide();
+  $('#profilebox3').hide();
+
+  $("#openMyPage1").click(async function () {
+    $('#profilebox1').slideToggle('slow');
+    $('#profilebox2').slideUp();
+    $('#profilebox3').slideUp();
+  })
+
+  $("#openMyPage2").click(async function () {
+    $('#profilebox1').slideUp();
+    $('#profilebox2').slideToggle('slow');
+    $('#profilebox3').slideUp();
+  })
+
+  $("#openMyPage3").click(async function () {
+    $('#profilebox1').slideUp();
+    $('#profilebox2').slideUp();
+    $('#profilebox3').slideToggle('slow');
+  })
+
+  $("#addComment").click(async function () {
+    let id = $('#inputid').val();
+    let pwd = $('#inputpwd').val();
+    let comment = $('#inputcom').val();
+
+    let doc = {
+      'inputid': id,
+      'inputpwd': pwd,
+      'inputcom': comment
+    };
+
+    if (!inputid.value) {
+      alert("이름을 입력하세요")
+      return false;
+    }
+    if (!inputpwd.value) {
+      alert("비밀번호를 입력하세요")
+      return false;
+    }
+    if (!inputcom.value) {
+      alert("방명록 내용을 입력하세요")
+      return false;
+    }
+
+    await addDoc(collection(db, "TP1_Comment"), doc);
+    window.location.reload();
+  })
+
+  let docs = await getDocs(collection(db, "TP1_Comment"));
+  docs.forEach((doc) => {
+    let row = doc.data();
+
+    let id = row['inputid'];
+    let pwd = row['inputpwd'];
+    let comment = row['inputcom'];
+
+    let temp = `
+    <div class="d-flex">
+      <div class="ms-3">
+        <div class="fw-bold">${id}</div>
+        ${comment}
+      </div>
+      <div class="editdel">
+          <span data-hello=${doc.id} class="deletecom" style=" cursor: pointer;">삭제</span>
+    </div>`;
+    $('#commentarea').append(temp);
+  });
+
+  $(document).on('click', '.deletecom', function () {
+    const commentId = $(this).data('hello'); // 댓글 ID 가져오기
+    const ok = window.confirm("방명록을 삭제하시겠습니까?");
+    console.log(commentId)
+    if (ok) {
+      try {
+        // Firestore에서 댓글 삭제
+        deleteDoc(doc(db, "TP1_Comment", commentId));
+
+        // 성공적으로 삭제되면 DOM에서 해당 댓글 삭제
+        $(this).closest('.d-flex').remove();
+      } catch (error) {
+        console.error("댓글 삭제 중 오류 발생:", error);
+      }
+    }
+  });
+
+</script>
+
+<body>
+  <div class="head">
+  </div>
+  <!-- 이미지 슬라이드 -->
+  <div class="section">
+    <input type="radio" name="slide" id="slide01" checked>
+    <input type="radio" name="slide" id="slide02">
+    <input type="radio" name="slide" id="slide03">
+
+    <div class="slidewrap">
+      <ul class="slidelist">
+        <li>
+          <a>
+            <label for="slide03" class="left"></label>
+            <img src="./img/teamimg1.jpg">
+            <label for="slide02" class="right"></label>
+          </a>
+        </li>
+        <li>
+          <a>
+            <label for="slide01" class="left"></label>
+            <img src="./img/teamimg2.jpg">
+            <label for="slide03" class="right"></label>
+          </a>
+        </li>
+        <li>
+          <a>
+            <label for="slide02" class="left"></label>
+            <img src="./img/teamimg3.jpg">
+            <label for="slide01" class="right"></label>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 사진 카드 -->
+  <div>
+    <div class="myPages">
+      <div class="card" tabindex="0" id="openMyPage1">
+        <img src="./img/card/눈.jpg" class="cardimg" alt="..." />
+        <div class="cardbody">
+          <p class="cardtext" style="
+              width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            ">
+            박상신
+          </p>
+        </div>
+      </div>
+      <div class="card" tabindex="0" id="openMyPage2">
+        <img src="./img/card/card2.jpg" class="cardimg" alt="..." />
+        <div class="cardbody">
+          <p class="cardtext" style="
+              width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            ">
+            조원호
+          </p>
+        </div>
+      </div>
+      <div class="card" tabindex="0" id="openMyPage3">
+        <img src="./img/card/홍지운.jpg" class="cardimg" alt="..." />
+        <div class="cardbody">
+          <p class="cardtext" style="
+              width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            ">
+            홍지운
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 1 (박상신님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile1" id="profilebox1" style="display: flex; flex-direction: row; align-items: center;">
+    <div class="flip" style=" width: 300px;
+    height: 400px;
+    perspective: 1100px;
+    margin-left:50px;" id="filpcard">
+      <div class="card" style="width: 300px; 
+        height: 400px; 
+        position: relative;
+        transition: .4s;
+        transform-style: preserve-3d;">
+
+        <div class="front" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden;
+          display: flex; flex-direction: column; align-items: center;">
+          <img src="./img/profile/스페이드A.png" style="width:300px; height: 400px; object-fit:fill"></img>
+        </div>
+
+        <div class="back" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 240)">
+          <div style="padding:10px;">
+            <div class="mycontent" style="display: flex; flex-direction: column; align-items: center; padding-top: 5%;">
+              <iframe width="100%" height="50%" src="https://www.youtube.com/embed/hoknJbAsOZY?si=qOWuf49ZHJ1raHm3"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <span style="text-align: center; list-style-type: none; font-family:fantasy; line-height: 2;">
+                <br>안녕하세요.<br>A-2 "국밥"의 팀장<br>박상신입니다.<br> 캠프 5개월간 잘부탁드립니다!<br> 위의 노래는 최근 자주 듣는 곡입니다. </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flip" style=" width: 300px;
+    height: 400px;
+    perspective: 1100px; 
+    margin-left: 100px;" id="filpcard">
+      <div class="card" style="width: 300px; 
+        height: 400px; 
+        position: relative;
+        transition: .4s;
+        transform-style: preserve-3d;">
+
+        <div class="front" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden;">
+          <img src="./img/profile/불호.jpg" style="width:300px; height:400px; object-fit:cover;"></img>
+        </div>
+
+        <div class="back" style="position: absolute;
+          width: 100%; 
+          height: 100%;
+          backface-visibility: hidden; transform: rotateY(180deg);">
+          <div style="padding:10px;">
+            <div class="mycontent" style="display: flex; flex-direction: column; align-items: center;">
+              <div title="티스토리" class="블로그">
+                <strong>
+                  <a href="https://like-it-too.tistory.com/" target="_blank"><img src="./img/profile/티스토리.png"></a>
+                </strong>
+              </div>
+              <div title="깃허브" class="깃허브" style="margin: 10px;">
+                <strong>
+                  <a href="https://github.com/dmlal" target="_blank">
+                    <img src="./img/profile/깃허브.png"></a>
+                </strong>
+              </div>
+              <div title="멤버카드" class="멤버카드">
+                <a href="https://www.notion.so/7f5b559aa6b342738566f2d33abce3ab?pvs=4" target="_blank">
+                  <img src="./img/profile/노션.png">
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flip" style=" width: 300px;
+      height: 400px;
+      perspective: 1100px; margin-left: 100px;" id="filpcard">
+      <div class="card" style="width: 300px; 
+          height: 400px; 
+          position: relative;
+          transition: .4s;
+          transform-style: preserve-3d;">
+
+        <div class="front" style="position: absolute;
+            width: 100%; 
+            height: 100%;
+            backface-visibility: hidden;">
+          <img src="./img/profile/intp.png" style="color: white; width:300px; height:400px; object-fit:fill;"></img>
+        </div>
+
+        <div class="back" style="position: absolute;
+            width: 100%; 
+            height: 100%;
+            backface-visibility: hidden; transform: rotateY(180deg); background-color: rgb(255, 255, 204);">
+          <div style="padding-top:12px;">
+            <ul style="padding:20px; text-align: center; list-style-type: none; font-family:fantasy;">
+              <p style="font-size: x-large;">장점</p>
+              <li>일처리가 깔끔한 것을 선호함</li>
+              <li>새로운 것을 받아들이는것에 거부감이 없음</li>
+            </ul>
+            <ul style="padding:20px; text-align: center; list-style-type: none;">
+              <p style="font-size: x-large;">협업스타일</p>
+              <li>협업 상대와의 의사소통을 중요시함</li>
+              <li>각자의 요구사항을 최대한 반영하는 것을 선호</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 2(조원호님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile2" id="profilebox2">
+    <!--프로필 왼쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileleft2">
+      <!-- 이미지 박스 본인 사진 / 필요없으시면 지우셔도 됩니다. -->
+      <div class="imgbox2">
+        <img src="./img/profile/profile2.jpg" class="profileimg2" style="display: block;">
+      </div>
+      <div class="lefttext2">
+        <!-- block 타입으로 쓰셔야 (div같은 거) 축소 시 안깨져요-->
+        <h1 style="margin-top: 0px;">조원호 │ 스펀지 같은 개발자</h1>
+        <h2>Contact</h2>
+        <div>Email: wonow_@naver.com</div>
+        <div>Phone: 010-0000-0000</div>
+        <h2>Channel</h2>
+        <p><a href="https://wonowdaily.tistory.com" target="_blank">개발 블로그</a></p>
+        <p><a href="https://github.com/wonowonow" target="_blank">GitHub</a></p>
+      </div>
+    </div>
+
+    <!-- 프로필 오른쪽 뼈대 / 필요없으시면 지우시고 하셔도 됩니다.-->
+    <div class="profileright2">
+      <div class="righttext2">
+        <div style="margin-top: 0px;">
+          안녕하세요! 개발자로서 웹 개발 역량을 키우기 위해 내일 배움 캠프에 참여하게 되었습니다!. <br><br>
+
+          고등학교 시절부터 군 입대하기 전까지 4년간 작곡을 하면서 창의적인 활동에 관심을 가졌습니다.<br>
+          평소 컴퓨터에 관심이 많아 막연하게 개발자의 꿈을 가지고 있었는데, 군 생활 때 AI, SW 교육을 수료하게 되면서 <br>
+          더욱 흥미를 느껴 개발자의 꿈을 확신하게 됐습니다.<br><br>
+
+          제 MBTI는 ENTP이며, 도전을 즐기고 아이디어가 떠오를 때 즉각적으로 실행으로 옮기는 스타일입니다.<br><br>
+
+          협업에서는 커뮤니케이션을 중요하게 생각합니다. 서로의 진행 상황을 공유하고 소통하면서 협업을 원활하게 진행할 수 있다고 믿습니다.<br><br>
+          앞으로 내일 배움 캠프에서 더 많은 것을 배우고, 팀원들과의 협업을 통해 성장하고 싶습니다. 아래는 제 개발 블로그 입니다. 😀
+        </div>
+      </div>
+    </div>
+    <div class="i" style="margin-top: 10px;">
+      <!-- 페이지 불러오는 ifram 필요 없으시면 지우셔도 됩니다 일단 주석 처리 할게요 -->
+      <iframe src="https://wonowdaily.tistory.com/" width=100% height="600px" title=" 내용"></iframe>
+    </div>
+  </div>
+
+  <!-- 프로필 페이지 3(홍지운님) 스크롤 내리기 힘드시면 접어주세요 -->
+  <div class="myprofile" id="profilebox3">
+    <div class="experience">
+      <div class="contents1">
+        <p class="title"><span>홍지운's</span>&nbsp;<span style="color: #2B3856;">information</span>&nbsp;<span
+            class="year">29살</span></p>
+        <img src="./img/profile/프로필 사진 2.jpg">
+        <img src="./img/profile/infp.png">
+        <img src="./img/profile/협업 스타일.png">
+      </div>
+      <div class="contents2">
+        <p class="title"><span>some</span>&nbsp;<span style="color: #2B3856;">TMI</span>&nbsp;<span class="year"></span>
+        </p>
+        <img style="width: 150px;" class="photos" src="./img/profile/국밥충.jpg">
+        <img src="./img/profile/고양이.jpg">
+        <img src="./img/profile/요리.png">
+        <img src="./img/profile/다이아.png">
+      </div>
+    </div>
+  </div>
+
+  <!-- 댓글 -->
+  <div class="card-body">
+    <div class="commentaddarea">
+      <div class="commenthead"> 🏠 방명록 </div>
+      <!-- Comment form-->
+      <div class="idpwdadd">
+        <div class="idpwd">
+          <div class="form-floating">
+            <input type="email" class="form-control" id="inputid" placeholder="Name" maxlength="10">
+            <label for="inputid">이름</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="inputpwd" placeholder="Password" maxlength="10">
+            <label for="inputpwd">비밀번호</label>
+          </div>
+          <button id="addComment" type="button" class="btn btn-outline-primary">방명록 작성</button>
+        </div>
+        <div>
+          <form class="mb-4"><textarea id="inputcom" class="form-control" rows="4" placeholder="방명록을 작성하세요"></textarea>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Comment with nested comments-->
+    <div id="commentarea" class="d-flex mb-4">
+    </div>
+
+</body>
+
+</html>

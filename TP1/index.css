@@ -1,0 +1,354 @@
+  @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
+
+  * {
+      font-family: "Noto Sans KR";
+  }
+
+  .head {
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: url('./img/title.png');
+      background-position: center;
+      background-size: cover;
+  }
+
+  .introduce {
+      margin-top: 30px;
+      max-width: 500px;
+      position: relative;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+  }
+
+  /* 이미지 슬라이드 CSS 시작 */
+  .section input[id*="slide"] {
+      display: none;
+  }
+
+  .section .slidewrap {
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+  }
+
+  .section .slidelist {
+      white-space: nowrap;
+      font-size: 0;
+      padding: 0;
+      margin: 0;
+  }
+
+  .section .slidelist>li {
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      transition: all .5s;
+  }
+
+  .section .slidelist>li>a {
+      display: block;
+      position: relative;
+  }
+
+  .section .slidelist>li>a img {
+      width: 100%;
+  }
+
+  /* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
+  .section .slidelist label {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 30px;
+      cursor: pointer;
+  }
+
+  .section .slidelist .left {
+      left: 30px;
+      background: url('./img/left.png') center center / 100% no-repeat;
+  }
+
+  .section .slidelist .right {
+      right: 30px;
+      background: url('./img/right.png') center center / 100% no-repeat;
+  }
+
+  /* INPUT 체크되면 변화값이 li까지 전달되는 스타일 */
+  .section input[id="slide01"]:checked~.slidewrap .slidelist>li {
+      transform: translateX(0%);
+  }
+
+  .section input[id="slide02"]:checked~.slidewrap .slidelist>li {
+      transform: translateX(-100%);
+  }
+
+  .section input[id="slide03"]:checked~.slidewrap .slidelist>li {
+      transform: translateX(-200%);
+  }
+
+  /* 이미지 슬라이드 CSS 끝 */
+
+  /* 프로필 카드 CSS 시작 */
+  .myPages {
+      width: 100%;
+      margin: 30px 0px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .card {
+      margin: 0px 50px;
+      border: 0.5px solid gray;
+      transition: all 0.3s linear;
+      cursor: pointer;
+  }
+
+  .cardtext {
+      margin: 3px auto 3px auto;
+      font-size: xx-large;
+      text-align: center;
+  }
+
+  /* card 크기 커지게 하는 CSS */
+  .card:hover,
+  .card:focus {
+      transform: scale(1.1);
+  }
+
+  .cardimg {
+      height: 18rem;
+      width: 18rem;
+  }
+
+  /* 프로필 카드 CSS 끝 */
+
+
+  /* 기본 프로필 CSS 시작 */
+  .myprofile {
+      padding: 10px 10px 10px 10px;
+      width: 90%;
+      margin: 30px auto 100px auto;
+      border: 1px solid black;
+      overflow: auto;
+  }
+
+  .profileleft {
+      border-right: 1px solid black;
+      width: 50%;
+      height: 100%;
+      float: left;
+  }
+
+  .profileright {
+      width: 50%;
+      height: 100%;
+      margin: 0px 0px 0px auto;
+  }
+
+  .imgbox {
+      height: 18rem;
+      width: 18rem;
+      margin-right: 10px;
+      border: 1px solid black;
+      float: left;
+  }
+
+  .profileimg {
+      height: 18rem;
+      width: 18rem;
+      padding-bottom: 10px;
+  }
+
+  /* 기본 프로필 CSS 끝 */
+
+  /* 1번 프로필 CSS 시작 */
+  .myprofile1 {
+      padding: 20px;
+      width: 80%;
+      margin: 30px auto 100px auto;
+      border-top: 2px solid lightgray;
+      overflow: visible;
+  }
+
+  .flip:hover .card {
+      transform: rotateY(180deg);
+  }
+
+  a:link {
+      color: black;
+  }
+
+  /* 1번 프로필 CSS 끝 */
+
+  /* 2번 프로필 CSS */
+  .myprofile2 {
+      padding: 10px 10px 10px 10px;
+      width: 90%;
+      margin: 30px auto 100px auto;
+      border: 1px solid rgb(214, 214, 214);
+      border-radius: 5px;
+      overflow: auto;
+      flex: 1 0 auto;
+      min-width: 600px;
+  }
+
+  .profileleft2 {
+      width: 50%;
+      height: 100%;
+      float: left;
+  }
+
+  .lefttext2 {
+      margin: auto 10px 10px 10px;
+  }
+
+  .profileright2 {
+      width: 50%;
+      margin: 0px 0px 0px auto;
+      border: 1px rgb(214, 214, 214) solid;
+      border-radius: 5px;
+  }
+
+  .righttext2 {
+      margin: auto 10px 10px 10px;
+  }
+
+  .imgbox2 {
+      height: 18rem;
+      width: 18rem;
+      margin-right: 10px;
+      border: 1px solid rgb(214, 214, 214);
+      float: left;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 5px;
+  }
+
+  .profileimg2 {
+      height: 18rem;
+      width: 18rem;
+      border-radius: 5px;
+  }
+
+  /* 2번 프로필 CSS 끝 */
+
+  /* 3번 프로필 CSS 시작 */
+  .experience img {
+      margin-right: 7px;
+      margin-top: 10px;
+      border: 5px;
+      border-style: solid;
+      border-color: lightgray;
+      border-image-outset: 10px;
+      width: 150px;
+      height: 180px;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .experience p {
+      font-size: 55px;
+      font-weight: 700;
+  }
+
+  /* for layout */
+  .contents1 {
+      width: 700px;
+      margin-left: 450px;
+  }
+
+  .contents2 {
+      width: 700px;
+      margin-left: 670px;
+      margin-top: 30px;
+  }
+
+  .year {
+      font-size: 17px;
+      opacity: 0.5;
+  }
+
+  /* 3번 프로필 CSS 끝 */
+
+  /* 댓글 CSS 시작 */
+  .card-body {
+      flex: 1 1 auto;
+      padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+      border: 1px solid rgb(214, 214, 214);
+      border-radius: 5px;
+      width: 90%;
+      margin: 0 auto 0 auto;
+  }
+
+  .commentaddarea {
+      border-bottom: 1px solid rgb(214, 214, 214);
+  }
+
+  .commenthead {
+      color: black;
+      background-color: rgb(236, 236, 236);
+      height: 50px;
+      line-height: 50px;
+      padding-left: 15px;
+      border-bottom: 1px solid rgb(214, 214, 214);
+  }
+
+  .idpwdadd {
+      padding: 30px;
+      margin-top: 0px;
+  }
+
+  /*아이디 패스워드 등록 창*/
+  .idpwd {
+      display: flex;
+      justify-content: left;
+  }
+
+  .form-floating {
+      margin-right: 10px;
+      width: 200px;
+  }
+
+  .btn-outline-primary {
+      margin-left: auto;
+      width: 120px;
+  }
+
+  .mb-4 {
+      margin-top: 10px;
+  }
+
+  /* 댓글 내용 CSS */
+
+  #commentarea {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+  }
+
+  .d-flex {
+      padding: 10px;
+      width: 100%;
+      border-bottom: 1px solid rgb(214, 214, 214);
+  }
+
+  .editdel {
+      margin: 0px 5px auto auto;
+      color: gray;
+  }
+
+  .deletecom:hover {
+      color: black;
+  }
+
+  .fw-bold {
+      font-size: large;
+  }
+
+  /* 댓글 CSS 끝 */
