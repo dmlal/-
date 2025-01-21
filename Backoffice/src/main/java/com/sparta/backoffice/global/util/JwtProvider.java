@@ -1,0 +1,166 @@
+package com.sparta.backoffice.global.util;
+
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Base64;
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import com.sparta.backoffice.auth.dto.TokenDto;
+import com.sparta.backoffice.global.properties.JwtProperties;
+import com.sparta.backoffice.user.constant.UserRoleEnum;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+@Getter
+@Slf4j(topic = "Jwt 유틸")
+@RequiredArgsConstructor
+@Component
+public class JwtProvider {
+	private static final String BEARER_PREFIX = "Bearer ";
+	private static final String AUTHORIZATION_KEY = "auth";
+	private static final String AUTHORIZATION_HEADER = "Authorization";
+	private static final String REFRESH_TOKEN_HEADER = "RefreshToken";
+	// 사용자 권한 값의 KEY
+	private static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
+	private final JwtProperties jwtProperties;
+	private String secretKey;
+	private String adminKey;
+	private Long accessTokenExpiration;
+	private Long refreshTokenExpiration;
+	private Key key;
+
+	@PostConstruct
+	public void init() {
+		adminKey = jwtProperties.getAdminKey();
+		secretKey = jwtProperties.getSecretKey();
+		accessTokenExpiration = jwtProperties.getAccessTokenExpiration();
+		refreshTokenExpiration = jwtProperties.getRefreshTokenExpiration();
+
+		byte[] bytes = Base64.getDecoder().decode(secretKey);
+		key = Keys.hmacShaKeyFor(bytes);
+	}
+
+	public String getTokenFromRequestHeader(HttpServletRequest req) {
+		String tokenValue = req.getHeader(AUTHORIZATION_HEADER);
+
+		if (!StringUtils.hasText(tokenValue)) {
+			return null;
+		}
+
+		return substringToken(tokenValue);
+	}
+
+	private String substringToken(String tokenValue) {
+		if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
+			return tokenValue.substring(7);
+		}
+
+		log.error("Can not Substring Token Value");
+		throw new IllegalArgumentException();
+	}
+
+	public boolean validateToken(String token) {
+		try {
+			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+			return true;
+		} catch (SecurityException | MalformedJwtException | SignatureException e) {
+			log.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
+		} catch (ExpiredJwtException e) {
+			log.error("Expired JWT token, 만료된 JWT token 입니다.");
+		} catch (UnsupportedJwtException e) {
+			log.error("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
+		} catch (IllegalArgumentException e) {
+			log.error("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+		}
+		return false;
+	}
+
+	// 토큰에서 사용자 정보 Claim 가져오기
+	public Claims getUserInfoFromToken(String token) {
+		return Jwts.parserBuilder()
+			.setSigningKey(key)
+			.build()
+			.parseClaimsJws(token)
+			.getBody();
+	}
+
+	//토큰 생성
+	public TokenDto createToken(String username, UserRoleEnum role) {
+		Date date = new Date();
+
+		String accessToken =
+			Jwts.builder()
+				.setSubject(username) // 사용자 식별자값(ID)
+				.claim(AUTHORIZATION_KEY, role) // 사용자 권한
+				.setExpiration(new Date(date.getTime() + accessTokenExpiration)) // 만료 시간
+				.setIssuedAt(date) // 발급일
+				.signWith(key, SIGNATURE_ALGORITHM) // 암호화 알고리즘
+				.compact();
+
+		String refreshToken =
+			Jwts.builder()
+				.setSubject(username) // 사용자 식별자값(ID)
+				.claim(AUTHORIZATION_KEY, role) // 사용자 권한
+				.setExpiration(new Date(date.getTime() + refreshTokenExpiration)) // 만료 시간
+				.setIssuedAt(date) // 발급일
+				.signWith(key, SIGNATURE_ALGORITHM) // 암호화 알고리즘
+				.compact();
+
+		return TokenDto.of(accessToken, refreshToken);
+	}
+
+	public void setTokenResponse(TokenDto tokenDto, HttpServletResponse response) {
+		setHeaderAccessToken(tokenDto.getAccessToken(), response);
+		setCookieRefreshToken(tokenDto.getRefreshToken(), response);
+	}
+
+	private void setCookieRefreshToken(String refreshToken, HttpServletResponse response) {
+		refreshToken = URLEncoder.encode(BEARER_PREFIX + refreshToken, StandardCharsets.UTF_8).replaceAll("\\+", "%20"); // Cookie Value 에는 공백이 불가능해서 encoding 진행
+
+		Cookie cookie = new Cookie(REFRESH_TOKEN_HEADER, refreshToken); // Name-Value
+		cookie.setSecure(true);
+		cookie.setHttpOnly(true);
+		cookie.setPath("/");
+
+		// Response 객체에 Cookie 추가
+		response.addCookie(cookie);
+	}
+
+	private void setHeaderAccessToken(String accessToken, HttpServletResponse response) {
+		response.setHeader(AUTHORIZATION_HEADER, BEARER_PREFIX + accessToken);
+	}
+
+	public String getRefreshTokenFromCookie(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+
+		if (cookies == null) {
+			return null;
+		}
+
+		String token = "";
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals(REFRESH_TOKEN_HEADER)) {
+				token = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8); // Encode 되어 넘어간 Value 다시 Decode
+			}
+		}
+		return substringToken(token);
+	}
+}
